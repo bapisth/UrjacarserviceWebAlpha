@@ -1,0 +1,106 @@
+<!--<form name="authForm" ng-submit="authForm.$valid && vm.submitAction({user: vm.user})" class="form-signin" novalidate>
+
+    <h2 class="form-signin-heading" ng-bind="vm.formTitle"></h2>
+
+    &lt;!&ndash;Server authentication error&ndash;&gt;
+    <p ng-show="vm.error" class="text-danger" ng-bind="vm.error"></p>
+
+    &lt;!&ndash;Email input&ndash;&gt;
+    <input ng-model="vm.user.email" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }" type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+
+    &lt;!&ndash;Email error&ndash;&gt;
+    <div ng-show="authForm.$submitted">
+        <p ng-show="authForm.email.$error.required" class="text-danger">Email required</p>
+        <p ng-show="authForm.email.$error.email" class="text-danger">Please enter a valid email.</p>
+    </div>
+
+    &lt;!&ndash;Password input&ndash;&gt;
+    <input ng-model="vm.user.password" type="password" name="password" class="form-control" placeholder="Password" required>
+
+    &lt;!&ndash;Password error&ndash;&gt;
+    <div ng-show="authForm.$submitted">
+        <p ng-show="authForm.password.$error.required" class="text-danger">Password required</p>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" ng-bind="vm.formTitle" type="submit"></button>
+</form>-->
+
+<!-- Navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-center mtop-30"><a href="#"><img src="images/urja-car-services-logo.png" alt="urja car services" width=""></a></p>
+        </div>
+    </div>
+    <!-- /navbar -->
+</div>
+<!-- Login wrapper -->
+<div class="login-wrapper">
+    <form role="form" name="authForm" ng-submit="authForm.$valid && vm.submitAction({user: vm.user})" class="form-signin" novalidate >
+        <div class="popup-header">
+            <p ng-show="vm.error" class="text-danger" ng-bind="vm.error"></p>
+            <a href="#" class="pull-left"><i class="icon-user-plus"></i></a>
+            <span class="text-semibold" ng-bind="vm.formTitle">User Login</span>
+            <div class="btn-group pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
+                <ul class="dropdown-menu icons-right dropdown-menu-right">
+                    <li><a href="#"><i class="icon-people"></i> Change user</a></li>
+                    <li><a href="#"><i class="icon-info"></i> Forgot password?</a></li>
+                    <li><a href="#"><i class="icon-support"></i> Contact admin</a></li>
+                    <li><a href="#"><i class="icon-wrench"></i> Settings</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="well">
+            <div class="form-group has-feedback">
+                <label>Username</label>
+                <input ng-model="vm.user.email" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }" type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+                <i class="icon-users form-control-feedback"></i>
+            </div>
+
+            <!--Email error-->
+            <div ng-show="authForm.$submitted">
+                <p ng-show="authForm.email.$error.required" class="text-danger">Email required</p>
+                <p ng-show="authForm.email.$error.email" class="text-danger">Please enter a valid email.</p>
+            </div>
+
+            <div class="form-group has-feedback">
+                <label>Password</label>
+                <input ng-model="vm.user.password" type="password" name="password" class="form-control" placeholder="Password" required>
+                <i class="icon-lock form-control-feedback"></i>
+            </div>
+
+            <!--Password error-->
+            <div ng-show="authForm.$submitted">
+                <p ng-show="authForm.password.$error.required" class="text-danger">Password required</p>
+            </div>
+
+            <div class="row form-actions">
+                <div class="col-xs-6">
+                    <div class="checkbox checkbox-success">
+                        <label>
+                            <a href="#/login" class="" role="button">Login</a>
+                            <a href="#/register" class="" role="button">SignUp</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <button class="btn btn-lg btn-primary btn-block" ng-bind="vm.formTitle" ng-hide="vm.isLoggedIn()" type="submit"><i class="icon-menu2"></i></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- /login wrapper -->
+
+
+<!-- Footer -->
+<div class="footer clearfix">
+    <div class="pull-left">&copy; 2016. Urja Car services Management System</div>
+    <div class="pull-right icons-group">
+        <a href="#"><i class="icon-screen2"></i></a>
+        <a href="#"><i class="icon-balance"></i></a>
+        <a href="#"><i class="icon-cog3"></i></a>
+    </div>
+</div>
