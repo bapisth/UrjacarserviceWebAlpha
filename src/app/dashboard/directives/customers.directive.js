@@ -6,8 +6,7 @@
 
     angular
         .module('app.dashBoard')
-        .directive('urjaCustomerlist', urjaCustomerlist)
-        .directive('urjaCustomerTransactionList', urjaCustomerTransactionList);
+        .directive('urjaCustomerlist', urjaCustomerlist);
 
     function urjaCustomerlist() {
         return {
@@ -22,21 +21,23 @@
         };
     }
 
-    function urjaCustomerTransactionList() {
+    /*function urjaCustomerTransactionList() {
         return {
             templateUrl: 'app/dashboard/directives/allTransactions.html',
             restrict: 'E',
             controller: TransactionListController,
             controllerAs: 'vm',
             bindToController: true,
-            scope: {
+            /!*scope: {
                 transactions: '='
+            }*!/
+            scope: {
+                customerTransactions: '='
             }
         };
-    }
+    }*/
 
     CustomerListController.$inject = ['dashboardService'];
-    TransactionListController.$inject = ['dashboardService'];
 
     function CustomerListController(dashboardService) {
         var vm = this;
@@ -48,18 +49,6 @@
             vm.parties.$add(vm.newParty);
             vm.newParty = new partyService.Party();
         }*/
-    }
-
-    function TransactionListController(dashboardService) {
-        var vm = this;
-
-        /*vm.newCustomer = new dashboardService.Customer();
-         vm.addParty = addParty;
-
-         function addParty() {
-         vm.parties.$add(vm.newParty);
-         vm.newParty = new partyService.Party();
-         }*/
     }
 
 })();
