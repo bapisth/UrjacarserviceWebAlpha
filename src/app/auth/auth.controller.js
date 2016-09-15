@@ -7,7 +7,7 @@
 
   AuthController.$inject = ['$location', 'authService', '$scope'];
 
-  function AuthController($location, authService) {
+  function AuthController($location, authService, $scope) {
 
     var vm = this;
 
@@ -16,15 +16,9 @@
     vm.register = register;
     vm.login = login;
 
-    /*function checkShowHide(val) {
+    //Sho/hide the login/signup link
+    vm.showLogin=1;
 
-      if (val=="login"){
-        $scope.showLogin=false;
-        $scope.showSignUp=true;
-      }else
-        $scope.showLogin=true;
-      $scope.showSignUp=false;
-    }*/
 
     function register(user) {
       return authService.register(user)
@@ -42,7 +36,8 @@
     function login(user) {
       return authService.login(user)
         .then(function() {
-          $location.path('/waitlist');
+          //$location.path('/waitlist');
+          $location.path('/dashboard');
         })
         .catch(function(error) {
           vm.error = error;

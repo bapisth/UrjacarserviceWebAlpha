@@ -1,0 +1,141 @@
+<div class="panel-body">
+    <div class="tabbable">
+        <ul class="nav nav-pills nav-justified">
+            <li class="active"><a href="#panel-pill1" data-toggle="tab"><i class="icon-file6"></i> Booking list</a></li>
+            <li><a href="#panel-pill2" data-toggle="tab"><i class="icon-stack"></i> Service Record</a></li>
+            <li><a href="#panel-pill3" data-toggle="tab"><i class="icon-file-excel"></i> Advisor Details</a></li>
+            <li><a href="#panel-pill4" data-toggle="tab"><i class="icon-user4"></i> Customer Details</a></li>
+            <li><a href="#panel-pill5" data-toggle="tab"><i class="icon-file-word"></i> Invoice</a></li>
+        </ul>
+
+        <!--Table ng-repeat-->
+        <div class="tab-content pill-content">
+            <!----Booking list---->
+            <div class="tab-pane fade in active" id="panel-pill1">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Booking Id</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Booking Date</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control datepicker" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-info"><i class="icon-search2"></i> Search</button>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-check">
+                        <thead>
+                        <tr>
+                            <th>Booking Id</th>
+                            <th>Customer Name</th>
+                            <th>Booking Date</th>
+                            <th>Service Status</th>
+                            <th>Customer Mobile Number</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="transaction in vm.transaction">
+                            <td><a href="#">ID001</a></td>
+                            <td>{{transaction.code}}</td>
+                            <td>
+                                12-05-2016
+
+                            </td>
+                            <td><span class="label label-success">open</span></td>
+                            <td>
+                                {{customer.mobile}}
+                            </td>
+
+                        </tr>-->
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Booking Id</label>
+                        <input type="text" class="form-control" value="ID001" />
+                    </div>
+                    <div class="col-md-2">
+                        <label>Customer Name</label>
+                        <input type="text" class="form-control" value="Jyoti" />
+                    </div>
+                    <div class="col-md-2">
+                        <label>Customer Address</label>
+                                                    <textarea class="form-control">
+                                                    	Cuttack, Bidanasi
+                                                    </textarea>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Booking Date</label>
+                        <input type="text" class="form-control" value="10-03-2016" />
+                    </div>
+                    <div class="col-md-2">
+                        <label>Customer Mobile No.</label>
+                        <input type="text" class="form-control" value="90905213258" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Car Model</label>
+                        <input type="text" class="form-control" value="sedan" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Car Number</label>
+                        <input type="text" class="form-control" value="OR02AZ9451" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Service Type</label>
+                        <input type="text" class="form-control" value="Water Service" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Payment Type</label>
+                        <input type="text" class="form-control" value="cash on delivery" />
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!----////Booking list---->
+            <div class="tab-pane fade" id="panel-pill2">
+                Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+            </div>
+
+            <div class="tab-pane fade" id="panel-pill3">
+                Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+            </div>
+
+            <div class="tab-pane fade" id="panel-pill4">
+                Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.
+            </div>
+        </div>
+
+    </div>
+</div>

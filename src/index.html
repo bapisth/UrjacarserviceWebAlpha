@@ -2,9 +2,7 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="utf-8">
-    <title>Wait and Eat</title>
-    <!--Bootstrap latest compiled and minified CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <title>Urja Car Service</title>
     <!--Optional theme-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <!--&lt;!&ndash;Custom CSS&ndash;&gt;
@@ -52,7 +50,7 @@
 
 
 </head>
-<body class="full-width page-condensed " id="bg-cover">
+<body id="bg-cover">
 
     <!--navbar directive that stays at the top of every page-->
     <!--<gz-navbar></gz-navbar>-->
@@ -92,6 +90,15 @@
     <script src="app/waitList/waitList.controller.js"></script>
     <script src="app/waitList/directives/partyForm.directive.js"></script>
     <script src="app/waitList/directives/partyTable.directive.js"></script>
+
+    <!--dashboard module-->
+    <script src="app/dashboard/dashboard.module.js"></script>
+    <script src="app/dashboard/config.route.js"></script>
+    <script src="app/dashboard/services/dashboard.service.js"></script>
+    <script src="app/dashboard/dashboard.controller.js"></script>
+    <script src="app/dashboard/directives/sidebar.directive.js"></script>
+    <script src="app/dashboard/directives/navbar.directive.js"></script>
+    <script src="app/dashboard/directives/customers.directive.js"></script>
 
     <!--core module-->
     <script src="app/core/core.module.js"></script>

@@ -10,8 +10,22 @@
 
     var service = {
       root: root,
+      BikeService:root.child('BikeService'),
+      Booking:root.child('Booking'),
+      CarService:root.child('CarService'),
+      Customer:root.child('Customer'),
+      ServiceAgent:root.child('ServiceAgent'),
+      ServiceAgentAssignmentArea:root.child('ServiceAgentAssignmentArea'),
+      ServiceAgentCurrentLocation:root.child('ServiceAgentCurrentLocation'),
+      Subscription:root.child('Subscription'),
+      Transaction:root.child('Transaction'),
+      ValidStatus:root.child('ValidStatus'),
+      ValidVehicle:root.child('ValidVehicle'),
+      customer:root.child('customer'),
+      customerAddress:root.child('customerAddress'),
+      emails:root.child('emails'),
       users: root.child('users'),
-      emails: root.child('emails'),
+      //emails: root.child('emails'),
       textMessages: root.child('textMessages')
     };
 

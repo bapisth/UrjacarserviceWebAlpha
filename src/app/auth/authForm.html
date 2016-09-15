@@ -1,30 +1,3 @@
-<!--<form name="authForm" ng-submit="authForm.$valid && vm.submitAction({user: vm.user})" class="form-signin" novalidate>
-
-    <h2 class="form-signin-heading" ng-bind="vm.formTitle"></h2>
-
-    &lt;!&ndash;Server authentication error&ndash;&gt;
-    <p ng-show="vm.error" class="text-danger" ng-bind="vm.error"></p>
-
-    &lt;!&ndash;Email input&ndash;&gt;
-    <input ng-model="vm.user.email" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }" type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-
-    &lt;!&ndash;Email error&ndash;&gt;
-    <div ng-show="authForm.$submitted">
-        <p ng-show="authForm.email.$error.required" class="text-danger">Email required</p>
-        <p ng-show="authForm.email.$error.email" class="text-danger">Please enter a valid email.</p>
-    </div>
-
-    &lt;!&ndash;Password input&ndash;&gt;
-    <input ng-model="vm.user.password" type="password" name="password" class="form-control" placeholder="Password" required>
-
-    &lt;!&ndash;Password error&ndash;&gt;
-    <div ng-show="authForm.$submitted">
-        <p ng-show="authForm.password.$error.required" class="text-danger">Password required</p>
-    </div>
-
-    <button class="btn btn-lg btn-primary btn-block" ng-bind="vm.formTitle" type="submit"></button>
-</form>-->
-
 <!-- Navbar -->
 <div class="container">
     <div class="row">
@@ -96,11 +69,32 @@
 
 
 <!-- Footer -->
-<div class="footer clearfix">
-    <div class="pull-left">&copy; 2016. Urja Car services Management System</div>
-    <div class="pull-right icons-group">
-        <a href="#"><i class="icon-screen2"></i></a>
-        <a href="#"><i class="icon-balance"></i></a>
-        <a href="#"><i class="icon-cog3"></i></a>
+<urja-footer></urja-footer>
+
+
+<!--<form name="authForm" ng-submit="authForm.$valid && vm.submitAction({user: vm.user})" class="form-signin" novalidate>
+
+    <h2 class="form-signin-heading" ng-bind="vm.formTitle"></h2>
+
+    &lt;!&ndash;Server authentication error&ndash;&gt;
+    <p ng-show="vm.error" class="text-danger" ng-bind="vm.error"></p>
+
+    &lt;!&ndash;Email input&ndash;&gt;
+    <input ng-model="vm.user.email" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }" type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+
+    &lt;!&ndash;Email error&ndash;&gt;
+    <div ng-show="authForm.$submitted">
+        <p ng-show="authForm.email.$error.required" class="text-danger">Email required</p>
+        <p ng-show="authForm.email.$error.email" class="text-danger">Please enter a valid email.</p>
     </div>
-</div>
+
+    &lt;!&ndash;Password input&ndash;&gt;
+    <input ng-model="vm.user.password" type="password" name="password" class="form-control" placeholder="Password" required>
+
+    &lt;!&ndash;Password error&ndash;&gt;
+    <div ng-show="authForm.$submitted">
+        <p ng-show="authForm.password.$error.required" class="text-danger">Password required</p>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" ng-bind="vm.formTitle" type="submit"></button>
+</form>-->

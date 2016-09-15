@@ -3,7 +3,8 @@
 
   angular
     .module('app.layout')
-    .directive('gzNavbar', gzNavbar);
+    .directive('gzNavbar', gzNavbar)
+    .directive('urjaFooter', urjaFooter);
 
   function gzNavbar() {
     return {
@@ -12,6 +13,14 @@
       scope: {},
       controller: NavbarController,
       controllerAs: 'vm'
+    };
+  }
+
+  function urjaFooter() {
+    return {
+      templateUrl: 'app/layout/footer.html',
+      restrict: 'E',
+      scope: {},
     };
   }
 
