@@ -12,7 +12,10 @@
       templateUrl: 'app/dashboard/dashboard.html',
       controller: 'DashBoardController',
       controllerAs: 'vm',
-      resolve: {user: resolveUser}
+      resolve: {
+        user: resolveUser,
+        allTransactionData:getAllTransactionData
+      }
     });
   }
 
@@ -20,6 +23,11 @@
 
   function resolveUser(authService) {
     return authService.firebaseAuthObject.$requireSignIn();
+  }
+
+  getAllTransactionData.$inject = ['dashboardService'];
+  function getAllTransactionData(dashboardService){
+    return dashboardService.getAllTransactions();
   }
 
 })();

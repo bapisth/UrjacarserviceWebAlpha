@@ -1,20 +1,23 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('app.dashBoard')
-    .controller('DashBoardController', DashBoardController);
+    angular
+        .module('app.dashBoard')
+        .controller('DashBoardController', DashBoardController);
 
-  DashBoardController.$inject = ['dashboardService'];
+    DashBoardController.$inject = ['dashboardService', 'allTransactionData'];
 
-  function DashBoardController(dashboardService) {
-    var vm = this;
+    function DashBoardController(dashboardService, allTransactionData) {
+        var vm = this;
 
-    vm.customers  = dashboardService.getAllCustomers();
-    vm.transactions = dashboardService.getAllTransactions();
-    vm.customerTransactions = dashboardService.getAllTransactions();
-    //vm.customerTransactions = vm.customers;
-    console.log("21313123:"+vm.customers);
-  }
+        console.log("allTransactionData:"+allTransactionData);
+        vm.customers = dashboardService.getAllCustomers();
+        vm.transactions = dashboardService.getAllTransactions();
+        vm.customerTransactions = dashboardService.getAllTransactions();
+
+        console.log("-------->" + vm.customerTransactions.transactionId);
+        //vm.customerTransactions = vm.customers;
+        console.log("21313123:" + vm.customers);
+    }
 
 })();
