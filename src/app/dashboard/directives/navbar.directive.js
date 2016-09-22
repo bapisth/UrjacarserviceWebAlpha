@@ -18,18 +18,19 @@
     };
   }
 
-  NavbarController.$inject = ['partyService'];
+  NavbarController.$inject = ['firebaseDataService'];
 
-  function NavbarController(partyService) {
+  function NavbarController(firebaseDataService) {
     var vm = this;
-
-    vm.newParty = new partyService.Party();
-    vm.addParty = addParty;
-
-    function addParty() {
-      vm.parties.$add(vm.newParty);
-      vm.newParty = new partyService.Party();
-    }
+    vm.messageCount = 0;
+    firebaseDataService.customer.on('value', function(data) {
+                     vm.messageCount += 1;
+                     /*var author = data.val().author || 'Anonymous';
+                     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+                     containerElement.insertBefore(
+                     createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
+                     containerElement.firstChild);*/
+                 });
   }
 
 })();

@@ -13,6 +13,8 @@
         var transactions = null;
         var customer = null;
         var customerTransactions = [];
+        var allTransactionDatas = [];
+        var customerTransactionsByTransactionId = [];
 
         var service = {
             Customer: Customer,
@@ -45,61 +47,33 @@
             return customers;
         }
 
-        /*function getAllTransactions(uid) {
-         if (!transactions) {
-         transactions = $firebaseArray(firebaseDataService.Transaction);
-         transactions.$loaded()
-         .then(function(){
-         angular.forEach(transactions, function(transaction) {
-         console.log("User Id:"+transaction.$id);
-
-         customer = $firebaseObject(firebaseDataService.customer.child(transaction.$id));
-         customer.$loaded()
-         .then(function (customer) {
-         TransactionModel = {};
-         TransactionModel["transactionId"] = transaction.$id;
-         TransactionModel["customerName"] = customer.name;
-         TransactionModel["customerMobile"] = customer.mobile;
-
-         customerTransactions.push(TransactionModel);
-         //console.log("--------->"+ customer.name);
-
-         })
-         //console.log("=====>"+customer);
-         //console.log(transaction);
-         //console.log(transaction.$id);
-         });
-         return customerTransactions;
-         });
-         }
-         //return transactions;
-         //console.log("11111-------------111111111:"+customerTransactions);
-         return customerTransactions;
-         }*/
-
         function getAllTransactions() {
-                return $firebaseArray(firebaseDataService.Transaction).$loaded().then(function (snapshot) {
-                    snapshot.forEach(function (childSnapshot) {
-                        var transactionId = childSnapshot.$id;
-                        TransactionModel = {};
-                        var promise = $firebaseObject(firebaseDataService.customer.child(transactionId)).$loaded().then(function (snap) {
-                            // The Promise was fulfilled.
-                            TransactionModel["transactionId"] = transactionId;
-                            TransactionModel["customerName"] = snap.name;
-                            TransactionModel["customerMobile"] = snap.mobile;
-                        }, function (error) {
-                            // The Promise was rejected.
-                            console.error(error);
-                        });
-                        customerTransactions.push(promise);
-                    });
-                    return Promise.all(customerTransactions);
-                }, function (error) {
-                    // The Promise was rejected.
-                    console.error(error);
-                }).then(function (values) {
-                    console.log(values); // [snap, snap, snap]
-                });
+                    return $firebaseArray(firebaseDataService.Transaction).$loaded().then(function (snapshot) {
+                                        customerTransactions = [];
+                                        snapshot.forEach(function (childSnapshot) {
+                                            var transactionId = childSnapshot.$id;
+                                            var promise = $firebaseObject(firebaseDataService.customer.child(transactionId)).$loaded();
+                                            customerTransactions.push(promise);
+                                        });
+                                        return Promise.all(customerTransactions);
+                                    }, function (error) {
+                                        // The Promise was rejected.
+                                        console.error(error);
+                                    }).then(function (values) {
+                                    allTransactionDatas = [];
+                                         values.forEach(function(value){
+                                             TransactionModel = {};
+                                             TransactionModel["transactionId"] = value.$id;
+                                             TransactionModel["customerName"] = value.name;
+                                             TransactionModel["customerMobile"] = value.mobile;
+
+                                             allTransactionDatas.push(TransactionModel);
+                                        })
+                                        //console.log(allTransactionDatas);
+                                        return allTransactionDatas;
+                                    });
+
+
         }
 
         function getValueChangedListener() {
@@ -112,7 +86,6 @@
 
         function customerChildAddedEventListener() {
             firebaseDataService.customer.on('child_added', function (data) {
-                console.log(data.val());
                 /*var author = data.val().author || 'Anonymous';
                  var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
                  containerElement.insertBefore(

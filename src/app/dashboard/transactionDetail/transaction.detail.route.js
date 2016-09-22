@@ -12,7 +12,9 @@
       templateUrl: 'app/dashboard/transactionDetail/sampleDetail.html',
       controller: 'TransactionDetailController',
       controllerAs: 'vm',
-      resolve: {user: resolveUser}
+      resolve: {
+      user: resolveUser
+      }
     });
   }
 

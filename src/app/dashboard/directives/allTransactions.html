@@ -56,7 +56,7 @@
 
                         {{vm.customertransactions | json}}
                         <tr ng-repeat="transaction in vm.customertransactions">
-                            <td><a href="#">{{transaction.transactionId}}</a></td>
+                            <td><a href="#/transactionDetail/{{transaction.transactionId}}">{{transaction.transactionId}}</a></td>
                             <td>{{transaction.customerName}}</td>
                             <td>
                                 12-05-2016

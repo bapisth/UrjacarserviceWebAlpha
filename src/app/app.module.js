@@ -8,6 +8,7 @@
 
       // Third party modules.
       'firebase',
+      'datatables',
 
       // Custom modules.
       'app.auth',
