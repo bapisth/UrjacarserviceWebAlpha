@@ -8,13 +8,21 @@
   configFunction.$inject = ['$routeProvider'];
 
   function configFunction($routeProvider) {
-    $routeProvider.when('/dashboard', {
+    $routeProvider
+        .when('/dashboard', {
       templateUrl: 'app/dashboard/dashboard.html',
       controller: 'DashBoardController',
       controllerAs: 'vm',
       resolve: {
         user: resolveUser,
         allTransactionData:getAllTransactionData
+      }
+    }).when('/addVehicle', {
+      templateUrl: 'app/dashboard/dashboard.html',
+      controller: 'AddVehicleController',
+      controllerAs: 'vm',
+      resolve: {
+        user: resolveUser
       }
     });
   }

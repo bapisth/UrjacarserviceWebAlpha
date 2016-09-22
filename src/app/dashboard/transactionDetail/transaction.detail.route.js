@@ -9,7 +9,7 @@
 
   function transactionDetailConfigFunction($routeProvider) {
     $routeProvider.when('/transactionDetail/:transactionId', {
-      templateUrl: 'app/dashboard/transactionDetail/sampleDetail.html',
+      templateUrl: 'app/dashboard/transactionDetail/transactiondetail.html',
       controller: 'TransactionDetailController',
       controllerAs: 'vm',
       resolve: {

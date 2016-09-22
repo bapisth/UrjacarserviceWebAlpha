@@ -9,6 +9,9 @@
 
     function DashBoardController(dashboardService, allTransactionData, DTOptionsBuilder, DTColumnBuilder, $q) {
         var vm = this;
+        //Put the contnets in the ng-include='dashboardContent'
+        vm.dashboardContent="app/dashboard/transactionlist.html"
+
         var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
         //console.log("allTransactionData:"+allTransactionData);
         //vm.customers = dashboardService.getAllCustomers();
