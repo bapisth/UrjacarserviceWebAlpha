@@ -5,6 +5,7 @@
     <title>Urja Car Service</title>
     <!--Optional theme-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!--&lt;!&ndash;Custom CSS&ndash;&gt;
     <link rel="stylesheet" href="content/css/app.css"/>-->
 
@@ -13,12 +14,12 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css">
 
     <link href="css/icons.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <!--Jquery Datatable <script src="jquery.dataTables.min.js"></script> -->
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/datatables.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="js/plugins/charts/sparkline.min.js"></script>
 
@@ -67,8 +68,18 @@
     <script src="js/datatables/angular-datatables.min.js"></script>
     <script src="https://code.angularjs.org/1.5.0/angular-route.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
-    <script src="app/config/firebase.config.js"></script>
+    <!--<script src="app/config/firebase.config.js"></script>-->
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+
+    <script>
+        var config = {
+            apiKey: "AIzaSyBNqsLFogF9rcc7178aW6uT1tHJaoT32yw",
+            authDomain: "motoservice-ef94a.firebaseapp.com",
+            databaseURL: "https://motoservice-ef94a.firebaseio.com",
+            storageBucket: "motoservice-ef94a.appspot.com",
+    };
+     firebase.initializeApp(config);
+    </script>
     <!--Angular Datatable CSS-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/datatables.min.css"/>
 
@@ -114,6 +125,7 @@
     <!--dashboard AddVehicle-->
     <script src="app/dashboard/addvehicle/addvehicle.controller.js"></script>
     <script src="app/dashboard/addvehicle/directives/addvehicle.directive.js"></script>
+    <script src="app/dashboard/addvehicle/vehicleservice/addvehicle.service.js"></script>
 
     <!--core module-->
     <script src="app/core/core.module.js"></script>

@@ -17,7 +17,8 @@
             bindToController: true,
             scope: {
                 error: '=',
-                formTitle: '@',
+                buttonTitle: '@',
+                vanAddedmessage: '@',
                 submitAction: '&'
             }
         };

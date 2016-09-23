@@ -2,10 +2,16 @@
     <fieldset>
         <!-- Prepended text-->
         <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-5">
+                <label class="col-md-4 control-label" ng-bind="vm.vanAddedmessage"></label>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-md-4 control-label" for="vehicleNo"></label>
             <div class="col-md-5">
                 <div class="input-group">
-                    <span class="input-group-addon">prepend</span>
+                    <span class="input-group-addon"><i class="icon-truck">#</i></span>
                     <input ng-model="vm.vehicle.vehicleNumber"  id="vehicleNo" name="vehicleNo" class="form-control" placeholder="Vehicle Number" type="text">
                 </div>
 
@@ -17,7 +23,7 @@
             <label class="col-md-4 control-label" for="vehicleName"></label>
             <div class="col-md-5">
                 <div class="input-group">
-                    <span class="input-group-addon">VN</span>
+                    <span class="input-group-addon"><i class="icon-truck"></i></i></span>
                     <input ng-model="vm.vehicle.vehicleName" id="vehicleName" name="vehicleName" class="form-control" placeholder="Vehicle Name" type="text">
                 </div>
 
@@ -53,7 +59,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for=""></label>
             <div class="col-md-4">
-                <button class="btn btn-primary" ng-bind="vm.formTitle" type="submit">Add</button>
+                <button class="btn btn-primary" ng-bind="vm.buttonTitle" type="submit">Add</button>
             </div>
         </div>
 

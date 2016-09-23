@@ -15,6 +15,8 @@
         var customerTransactions = [];
         var allTransactionDatas = [];
         var customerTransactionsByTransactionId = [];
+        var allVanAndAgents = [];
+        var allVanAndAgentPromiseList = [];
 
         var service = {
             Customer: Customer,
@@ -23,6 +25,7 @@
             getAllTransactions: getAllTransactions,
             CustomerValueEvent: getValueChangedListener,
             CustomerChildAddedEvent: customerChildAddedEventListener,
+            GetAllVanAndAgents: getAllVanAndAgents,
             reset: reset
         };
 
@@ -39,6 +42,10 @@
             this.transactionId = '';
             this.customerName = '';
         }
+
+
+
+
 
         function getAllCustomers(uid) {
             if (!customers) {
@@ -86,12 +93,32 @@
 
         function customerChildAddedEventListener() {
             firebaseDataService.customer.on('child_added', function (data) {
-                /*var author = data.val().author || 'Anonymous';
-                 var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-                 containerElement.insertBefore(
-                 createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
-                 containerElement.firstChild);*/
             });
+        }
+
+        function getAllVanAndAgents(){
+            return $firebaseArray(firebaseDataService.vanWithAgentService)
+            .$loaded().then(function (snapshot) {
+                            allVanAndAgentPromiseList = [];
+                            return Promise.all(snapshot);
+                        }, function (error) {
+                            console.error(error);
+                        }).then(function (values) {
+                             allVanAndAgents = [];
+                             values.forEach(function(value){
+                                 var vehicle = new function(){
+                                             this.vehicleName=value.vanName;
+                                             this.vehicleNumber=value.vanNumber;
+                                             this.agentName=value.agentName;
+                                             this.agentContact=value.agentMobile;
+                                         }
+
+                                 allVanAndAgents.push(vehicle);
+                            })
+                            console.log(allVanAndAgents);
+                            return allVanAndAgents;
+                        });
+
         }
 
 

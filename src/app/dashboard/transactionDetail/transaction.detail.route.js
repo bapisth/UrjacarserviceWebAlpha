@@ -13,7 +13,8 @@
       controller: 'TransactionDetailController',
       controllerAs: 'vm',
       resolve: {
-      user: resolveUser
+      user: resolveUser,
+      vanAndAgents: vanAndAgents
       }
     });
   }
@@ -23,5 +24,10 @@
   function resolveUser(authService) {
     return authService.firebaseAuthObject.$requireSignIn();
   }
+
+  vanAndAgents.$inject = ['dashboardService'];
+  function vanAndAgents(dashboardService) {
+      return dashboardService.GetAllVanAndAgents();
+    }
 
 })();

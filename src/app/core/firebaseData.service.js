@@ -25,6 +25,7 @@
       customerAddress:root.child('customerAddress'),
       emails:root.child('emails'),
       users: root.child('users'),
+      vanWithAgentService: root.child('vanwithagent'),
       //emails: root.child('emails'),
       textMessages: root.child('textMessages')
     };

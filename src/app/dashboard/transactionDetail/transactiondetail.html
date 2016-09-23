@@ -84,7 +84,7 @@
         <!-- /breadcrumbs line -->
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h6 class="panel-title"><i class="icon-checkbox-partial"></i> Customer Trans Details</h6>
+                <h6 class="panel-title"><i class="icon-checkbox-partial"></i> Customer Transaction Details</h6>
             </div>
 
             <!--List of Customers-->
@@ -92,46 +92,89 @@
             <!--<urja-customer-transaction-list transactions="vm.transactions"></urja-customer-transaction-list>-->
             <!--<urja-transaction customertransactions="vm.customerTransactions"></urja-transaction>-->
             <!--{{vm.transactions | json}}-->
-            <div ng-repeat="transaction in vm.transactions" class="panel panel-info">
+            <!--<div ng-repeat="transaction in vm.transactions" class="panel panel-primary">-->
+            <div ng-repeat="transaction in vm.transactionArray" class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Car Picking Address</h3><span ng-show="{{transaction.requestOpen}}" class="label label-success pull-right">Open</span>
-                    <span  ng-show="{{!transaction.requestOpen}}" class="label label-danger pull-right">Closed</span>
+                    <!--<h2 class="label label-success">{{transaction.carNumber}}</h2>-->
+                    <h3 class="panel-title label">Details For Car : {{transaction.carNumber}}</h3><span ng-show="{{transaction.requestStatus == 'open'}}" class="label label-success pull-right">Open</span>
+                    <span  ng-show="{{transaction.requestStatus == 'closed'}}" class="label label-danger pull-right">Closed</span>
+                    <span  ng-show="{{transaction.requestStatus == 'progress'}}" class="label label-warning pull-right">In Progress</span>
                 </div>
                 <div class="panel-body" >
                     <div class="row">
-                        <div class="col-md-2">
-                            <label>Booking Id : {{transaction.$id}}</label>
-                            <input type="text" class="form-control" value="ID001">
+                        <div class="col-lg-4">
+                            <div class="col-lg-12">
+                                <label>Booking Id</label>
+                                <input type="text" ng-model=vm.transactionArray[$index]["transactionId"] class="form-control" readonly>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <label>Booking Date</label>
+                                <input type="text" class="form-control" ng-model=vm.transactionArray[$index]["serviceRequestDate"]>
+                            </div>
+
                         </div>
-                        <div class="col-md-2">
-                            <label>Address</label>
-                            <textarea class="form-control"
-                                   value="">{{transaction.CarPickAddress.addressLine1}}, {{transaction.CarPickAddress.addressLine2}},
-                                {{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}</textarea>
+                        <div class="col-lg-4">
+                            <div class="col-lg-12">
+                                <label>Address</label>
+                                <
+                            <textarea class="form-control" ng-model=vm.transactionArray[$index]["addressLine1"]>
+                                {{transaction.CarPickAddress.addressLine1}}, {{transaction.CarPickAddress.addressLine2}},{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}</textarea>
+                            </div>
+                            <div class="col-lg-12">
+                                <label>Landmark</label>
+                                <textarea class="form-control" ng-model=vm.transactionArray[$index]["landmark"]></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-2">
-                            <label>Landmark</label>
-                            <textarea class="form-control">{{transaction.CarPickAddress.landmark}}</textarea>
-                        </div>
-                        <div class="col-md-2">
-                            <label>Booking Date</label>
-                            <input type="text" class="form-control" value="10-03-2016">
-                        </div>
-                        <div class="col-md-2">
-                            <label>Customer Mobile No.</label>
-                            <input type="text" class="form-control" value="{{transaction.CarPickAddress.mobileNumber}}">
+                        <div class="col-lg-4">
+                            <div class="col-lg-12">
+                                <label>Customer Mobile No.{{transaction.CarPickAddress.mobileNumber}}</label>
+                                <input type="text" class="form-control" ng-model=vm.obj[$index]["mobileNumber"]>
+                            </div>
+                            <div class="col-lg-12">
+                                <label>Assign Agent</label>
+                                <select class="form-control" ng-model="vm.obj[$index]['ccc']"><!--ng-model="vm.selectedAgentName" ng-options=""-->
+                                    <option></option>
+                                    <option ng-repeat="vanAgent in vm.obj[$index]['agentNames']">{{vanAgent.agentName}}</option>
+                                </select>
+                            </div>
                         </div>
 
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <label>Service Requested</label>
-                            <div class="list-group" ng-repeat="service in transaction.serviceRequestList">
+
+                        <div class="col-lg-8">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Service Requested</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-lg-12" >
+                                        <div class="col-lg-4 well" ng-repeat="service in transaction.serviceRequestList" >
+                                            {{service.code}}- {{service.desc}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--<label>Service Requested</label>
+                            <div class="list-group" >
                                 <button type="button" class="list-group-item list-group-item-action active">
                                     {{service.carnumber | uppercase}}
                                 </button>
                                 <button type="button" class="list-group-item list-group-item-action">{{service.code}}- {{service.desc}} </button>
+                            </div>-->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4" style="">
+                                    <button type="button" value="{{transaction.$id}}" class="btn btn-primary pull-right" ng-click="vm.onClick($index)" style="margin-right:10px">Assign Van</button>
+                                </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
