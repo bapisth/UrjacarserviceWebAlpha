@@ -13,6 +13,7 @@
     vm.transactions = [];
     vm.transactionArray = [];
     vm.onClick = onClick;
+    vm.changeSelectedItem=changeSelectedItem;
     vm.obj = [];
 
     vm.transactionId = $routeParams.transactionId;
@@ -46,10 +47,12 @@
 
                 vm.obj[index]["buttonId"]=childSnapshot.$id;
                 vm.obj[index]["agentNames"]= [];
-                vm.obj[index]["ccc"] = "Priya";
+
                 vanAndAgents.forEach(function(vanAndAgent, idx){
                     vm.obj[index]["agentNames"][idx] =  vanAndAgent;
                 });
+
+                vm.obj[index]["selectedItem"] = vm.obj[index]["agentNames"][0];
 
 
                 vm.transactionArray.push(vm.obj[index]);
@@ -66,13 +69,30 @@
         console.log("3.----->"+vm.transactionArray);
     });
 
+
+
     vm.vanWithAgents = vanAndAgents;
 
     console.log(vm.vanWithAgents);
   function onClick(index){
-    console.log(vm.transactionArray[index])
+    //console.log(vm.transactionArray[index]);
+    //console.log(vm.obj[index]);
+
+      //First Add to Assign the Agent
+      var mainObj = vm.obj[index];
+      var vanNumber = mainObj.selectedItem.vehicleNumber;
+      console.log("Van Number : "+ vanNumber);
+      var vanAgnt = {};
+      vanAgnt.
+      firebaseDataService.vanWithAgentService.child(vanNumber)
 
   }
+
+function changeSelectedItem(index){
+    //vm.obj[index]["selectedItem"] = vm.obj[index]["agentNames"];
+        console.log(vm.obj[index]["selectedItem"]);
+    vm.obj[index]["selectedItem"] = vm.obj[index]["selectedItem"];
+}
 
   }
 

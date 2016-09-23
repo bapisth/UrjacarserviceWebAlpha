@@ -17,7 +17,7 @@
 
     ////////////
     function addVanWithAgent(vehicle){
-        return firebaseDataService.vanWithAgentService.push({
+        return firebaseDataService.vanWithAgentService.child(vehicle.vehicleNumber).set({
             vanName: vehicle.vehicleName,
             vanNumber: vehicle.vehicleNumber,
             agentName: vehicle.agentName,

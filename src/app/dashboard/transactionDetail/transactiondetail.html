@@ -132,10 +132,9 @@
                                 <input type="text" class="form-control" ng-model=vm.obj[$index]["mobileNumber"]>
                             </div>
                             <div class="col-lg-12">
-                                <label>Assign Agent</label>
-                                <select class="form-control" ng-model="vm.obj[$index]['ccc']"><!--ng-model="vm.selectedAgentName" ng-options=""-->
-                                    <option></option>
-                                    <option ng-repeat="vanAgent in vm.obj[$index]['agentNames']">{{vanAgent.agentName}}</option>
+                                <label>Assign Agent</label>{{vm.obj[$index]['selectedItem'] | json}}
+                                <select class="form-control" ng-model="vm.obj[$index]['selectedItem']" ng-options="vanAgent.agentName for vanAgent in vm.obj[$index]['agentNames']" ng-change="vm.changeSelectedItem($index)"><!--ng-model="vm.selectedAgentName" ng-options=""-->
+                                    <option value="">-- Choose Agent --</option>
                                 </select>
                             </div>
                         </div>
