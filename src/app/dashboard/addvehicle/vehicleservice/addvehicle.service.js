@@ -5,14 +5,15 @@
         .module('app.dashBoard')
         .factory('addVehicleService', addVehicleService);
 
-    addVehicleService.$inject = ['$firebaseAuth', 'firebaseDataService'];
+    addVehicleService.$inject = ['$firebaseAuth', 'firebaseDataService', '$q'];
 
     function addVehicleService($firebaseAuth, firebaseDataService) {
 
         var service = {
             addVanWithAgent: addVanWithAgent,
             assignVanToAgent: assignVanToAgent,
-            isAgentAssigned: isAgentAssigned
+            isAgentAssigned: isAgentAssigned,
+            updateTransactionStatus : updateTransactionStatus
         };
 
         return service;
@@ -55,6 +56,28 @@
                     console.log(snap.val());
                     return snap.val();
                 });
+        }
+
+        function updateTransactionStatus(userid, carNumber, transactionId, updatedData, $q){
+            console.log(updatedData.addressLine1);
+            firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).child("CarPickAddress").update({
+                addressLine1:updatedData.addressLine1,
+                addressLine2:updatedData.addressLine2,
+                landmark: updatedData.landmark,
+                mobileNumber : updatedData.mobileNumber,
+                pin : updatedData.pin,
+                state : updatedData.state
+            }, function(error) {
+                if (error) {
+                    console.log('Synchronization failed');
+                } else {
+                    console.log('Synchronization succeeded');
+                }
+            });//requestStatus : updatedData.requestStatus,
+
+            firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).update({
+                requestStatus:updatedData.requestStatus
+            });
         }
 
     }

@@ -78,9 +78,6 @@
                                 }
                             });
 
-                            //vm.selectedItem[index] = vanAndAgents[0];
-                            //vm.obj[index]["selectedItem"] = {};
-
                             vm.transactionArray.push(vm.obj[index]);
                             console.log(vm.transactionArray);
                             console.log(vm.transactionArray[index]["serviceRequestDate"])
@@ -88,20 +85,26 @@
                         });
                     });
                 });
-                console.log("Obj Length :"+vm.obj.length);
             });
         });
 
         //vm.vanWithAgents = vanAndAgents;
 
         function onClick(index) {
-            //console.log(vm.transactionArray[index]);
-            console.log(vm.obj[index]);
 
+            console.log(vm.transactionArray[index]);
+            var mainObj = vm.transactionArray[index];
             //First Add to Assign the Agent
+            var personCarNumber = mainObj.carNumber;
+            console.log("personCarNumber : " + personCarNumber);
             var vanNumber = vm.getVanNumber(index);
             console.log("Van Number : " + vanNumber);
+            mainObj.requestStatus="progress";
+            var userId = vm.transactionId;
+
+            addVehicleService.updateTransactionStatus(userId, personCarNumber, mainObj.transactionId, mainObj);
             addVehicleService.assignVanToAgent(vanNumber);
+
         }
 
         function changeSelectedItem(index) {
@@ -124,7 +127,6 @@
             console.log('Inside getVanNumber');
             var mainObj = vm.selectedItem[index];//vm.transactionArray[index];
             var vanNumber = mainObj.vanNumber;// mainObj.selectedItem.vehicleNumber;
-            //var vanNumber = vm.selectedItem.vehicleNumber;
             return vanNumber;
         }
 
