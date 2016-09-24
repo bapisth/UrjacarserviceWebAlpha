@@ -13,7 +13,9 @@
             addVanWithAgent: addVanWithAgent,
             assignVanToAgent: assignVanToAgent,
             isAgentAssigned: isAgentAssigned,
-            updateTransactionStatus : updateTransactionStatus
+            updateTransactionStatus : updateTransactionStatus,
+            closeTransaction:closeTransaction,
+            freeVanFromAgent:freeVanFromAgent
         };
 
         return service;
@@ -49,6 +51,11 @@
             firebaseDataService.vanWithAgentService.child(vanNumber).child('isAgentAssignedWithTask').set(true);
         }
 
+        function freeVanFromAgent(vanNumber) {
+            console.log('free Van Number :'+ vanNumber);
+            firebaseDataService.vanWithAgentService.child(vanNumber).child('isAgentAssignedWithTask').set(false);
+        }
+
         function isAgentAssigned(vanNumber) {
             console.log(vanNumber);
             return firebaseDataService.vanWithAgentService.child(vanNumber)
@@ -58,8 +65,7 @@
                 });
         }
 
-        function updateTransactionStatus(userid, carNumber, transactionId, updatedData, $q){
-            console.log(updatedData.addressLine1);
+        function updateTransactionStatus(userid, carNumber, transactionId, updatedData, selectedItem, processDate){
             firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).child("CarPickAddress").update({
                 addressLine1:updatedData.addressLine1,
                 addressLine2:updatedData.addressLine2,
@@ -76,7 +82,17 @@
             });//requestStatus : updatedData.requestStatus,
 
             firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).update({
-                requestStatus:updatedData.requestStatus
+                requestStatus:updatedData.requestStatus,
+                agentAssigned:selectedItem.agentName,
+                vanNumberAssigned:updatedData.vanNumber,
+                serviceProcessDate : processDate
+            });
+        }
+
+        function closeTransaction(userid, carNumber, transactionId, updatedData){
+            firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).update({
+                requestStatus:"closed",
+                serviceCompleteDate:updatedData.serviceCompleteDate
             });
         }
 

@@ -14,10 +14,27 @@
         vm.transactionArray = [];
         vm.onClick = onClick;
         vm.changeSelectedItem = changeSelectedItem;
+        vm.onCloseTransaction = onCloseTransaction;
         vm.getVanNumber = getVanNumber;
         vm.obj = [];
         vm.selectedItem = [];
         vm.vanAndAgents = [];
+        vm.showServiceProcessDate = [];
+        vm.serviceProcessDate = [];
+        vm.showServiceEndDate = []
+        vm.serviceCompleteDate = [];
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+        vm.today = dd+'/'+mm+'/'+yyyy;
 
         vm.transactionId = $routeParams.transactionId;
         console.log(vm.transactionId);
@@ -25,7 +42,7 @@
         firebaseDataService.vanWithAgentService.on('value', function (snap) {
             vm.vanAndAgents = [];
             console.log('Asila re Asila.........');
-            snap.forEach(function(childSnapshot) {
+            snap.forEach(function (childSnapshot) {
                 var key = childSnapshot.getKey();
                 var childData = childSnapshot.val();
                 vm.vanAndAgents.push(childData);
@@ -72,11 +89,17 @@
 
                             var counter = 0;
                             vm.vanAndAgents.forEach(function (vanAndAgent, idx) {//If the Agent is already assigned then do not show him.
-                                if (!vanAndAgent.isAgentAssignedWithTask){
+                                if (!vanAndAgent.isAgentAssignedWithTask) {
                                     vm.obj[index]["agentNames"][counter] = vanAndAgent;
                                     counter++;
                                 }
                             });
+
+                            vm.selectedItem[index] = [];
+                            vm.obj[index]["agentAssigned"] = data.agentAssigned;
+                            vm.obj[index]["serviceProcessDate"] = data.serviceProcessDate;
+                            vm.obj[index]["serviceCompleteDate"] = data.serviceCompleteDate;
+                            vm.obj[index]["vanNumberAssigned"] = data.vanNumberAssigned;
 
                             vm.transactionArray.push(vm.obj[index]);
                             console.log(vm.transactionArray);
@@ -92,35 +115,29 @@
 
         function onClick(index) {
 
+            vm.serviceProcessDate[index] = vm.today;
+            vm.showServiceProcessDate[index] = true;
+            
             console.log(vm.transactionArray[index]);
             var mainObj = vm.transactionArray[index];
             //First Add to Assign the Agent
             var personCarNumber = mainObj.carNumber;
-            console.log("personCarNumber : " + personCarNumber);
+
             var vanNumber = vm.getVanNumber(index);
-            console.log("Van Number : " + vanNumber);
-            mainObj.requestStatus="progress";
+            mainObj.requestStatus = "progress";
+            mainObj.vanNumber = vanNumber;
             var userId = vm.transactionId;
 
-            addVehicleService.updateTransactionStatus(userId, personCarNumber, mainObj.transactionId, mainObj);
+            addVehicleService.updateTransactionStatus(userId, personCarNumber, mainObj.transactionId, mainObj, vm.selectedItem[index], vm.serviceProcessDate[index]);
             addVehicleService.assignVanToAgent(vanNumber);
 
         }
 
         function changeSelectedItem(index) {
-            console.log('Index = '+ index);
+            console.log('Index = ' + index);
             console.log(vm.obj[index]["selectedItem"]);
             var vanNumber = vm.getVanNumber(index);
             var isAsgn = false;
-            /*if (vanNumber != undefined)
-                isAsgn = ;
-            console.log('isAsign :'+isAsgn);*/
-            /*if(addVehicleService.isAgentAssigned(vanNumber)){
-                vm.obj[index]["selectedItem"] = -1;
-                //vm.obj[index]["selectedItem"] = vm.obj[index]["agentNames"][0];
-                alert('The agent is already assigned with the task, Choose different One.')
-                return;
-            }*/
         }
 
         function getVanNumber(index) {
@@ -128,6 +145,27 @@
             var mainObj = vm.selectedItem[index];//vm.transactionArray[index];
             var vanNumber = mainObj.vanNumber;// mainObj.selectedItem.vehicleNumber;
             return vanNumber;
+        }
+
+        function onCloseTransaction(index) {
+            /*vm.showServiceEndDate[index]= true;
+            vm.serviceCompleteDate[index] = vm.today;*/
+
+            //vm.obj[index]["serviceProcessDate"] = vm.today;
+
+            console.log(vm.transactionArray[index]);
+            var mainObj = vm.transactionArray[index];
+            
+            mainObj.requestStatus = "closed";
+            mainObj.serviceCompleteDate = vm.today;
+            var userId = vm.transactionId;
+            var personCarNumber = mainObj.carNumber;
+            var vanNumber = mainObj.vanNumberAssigned;
+            mainObj.vanNumber = vanNumber;
+            console.log("Van Number :"+vanNumber);
+
+            addVehicleService.closeTransaction(userId, personCarNumber, mainObj.transactionId, mainObj);
+            addVehicleService.freeVanFromAgent(vanNumber);
         }
 
     }
