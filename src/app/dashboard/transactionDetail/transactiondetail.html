@@ -105,12 +105,12 @@
                         <div class="col-lg-4">
                             <div class="col-lg-12">
                                 <label>Booking Id</label>
-                                <input type="text" ng-model=vm.transactionArray[$index]["transactionId"] class="form-control" readonly>
+                                <input type="text" ng-model=transaction["transactionId"] class="form-control" readonly>
                             </div>
 
                             <div class="col-lg-12">
                                 <label>Booking Date</label>
-                                <input type="text" class="form-control" ng-model=vm.transactionArray[$index]["serviceRequestDate"]>
+                                <input type="text" class="form-control" ng-model=transaction["serviceRequestDate"]>
                             </div>
 
                         </div>
@@ -118,22 +118,22 @@
                             <div class="col-lg-12">
                                 <label>Address</label>
                                 <
-                            <textarea class="form-control" ng-model=vm.transactionArray[$index]["addressLine1"]>
+                            <textarea class="form-control" ng-model=transaction["addressLine1"]>
                                 {{transaction.CarPickAddress.addressLine1}}, {{transaction.CarPickAddress.addressLine2}},{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}</textarea>
                             </div>
                             <div class="col-lg-12">
                                 <label>Landmark</label>
-                                <textarea class="form-control" ng-model=vm.transactionArray[$index]["landmark"]></textarea>
+                                <textarea class="form-control" ng-model=transaction["landmark"]></textarea>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="col-lg-12">
                                 <label>Customer Mobile No.{{transaction.CarPickAddress.mobileNumber}}</label>
-                                <input type="text" class="form-control" ng-model=vm.obj[$index]["mobileNumber"]>
+                                <input type="text" class="form-control" ng-model=transaction["mobileNumber"]>
                             </div>
                             <div class="col-lg-12">
-                                <label>Assign Agent</label>{{vm.obj[$index]['selectedItem'] | json}}
-                                <select class="form-control" ng-model="vm.obj[$index]['selectedItem']" ng-options="vanAgent.agentName for vanAgent in vm.obj[$index]['agentNames']" ng-change="vm.changeSelectedItem($index)"><!--ng-model="vm.selectedAgentName" ng-options=""-->
+                                <label>Assign Agent</label>{{$index}}-{{vm.selectedItem[$index] | json}}
+                                <select class="form-control" ng-model="vm.selectedItem[$index]" ng-options="vanAgent.agentName for vanAgent in transaction['agentNames']" ng-click="vm.populateOptions($index)"><!--ng-model="vm.selectedAgentName" ng-options=""-->
                                     <option value="">-- Choose Agent --</option>
                                 </select>
                             </div>
