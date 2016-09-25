@@ -12,23 +12,30 @@
             controller: SidebarController,
             controllerAs: 'vm',
             bindToController: true,
+            replace: true,
+            transclude: true,
             scope: {
                 parties: '='
             }
         };
     }
 
-    SidebarController.$inject = ['partyService'];
+    SidebarController.$inject = ['partyService', '$location'];
 
-    function SidebarController(partyService) {
+    function SidebarController(partyService, $location) {
         var vm = this;
 
         vm.newParty = new partyService.Party();
         vm.addParty = addParty;
+        vm.getClass = getClass;
 
         function addParty() {
             vm.parties.$add(vm.newParty);
             vm.newParty = new partyService.Party();
+        }
+        
+        function getClass(path) {
+            return ($location.path().substr(0, path.length) === path) ? 'active' : '';
         }
     }
 
