@@ -25,7 +25,7 @@
             getAllTransactions: getAllTransactions,
             CustomerValueEvent: getValueChangedListener,
             CustomerChildAddedEvent: customerChildAddedEventListener,
-            GetAllVanAndAgents: getAllVanAndAgents,
+            /*GetAllVanAndAgents: getAllVanAndAgents,*/
             reset: reset
         };
 
@@ -44,9 +44,6 @@
         }
 
 
-
-
-
         function getAllCustomers(uid) {
             if (!customers) {
                 customers = $firebaseArray(firebaseDataService.customer);
@@ -55,30 +52,30 @@
         }
 
         function getAllTransactions() {
-                    return $firebaseArray(firebaseDataService.Transaction).$loaded().then(function (snapshot) {
-                                        customerTransactions = [];
-                                        snapshot.forEach(function (childSnapshot) {
-                                            var transactionId = childSnapshot.$id;
-                                            var promise = $firebaseObject(firebaseDataService.customer.child(transactionId)).$loaded();
-                                            customerTransactions.push(promise);
-                                        });
-                                        return Promise.all(customerTransactions);
-                                    }, function (error) {
-                                        // The Promise was rejected.
-                                        console.error(error);
-                                    }).then(function (values) {
-                                    allTransactionDatas = [];
-                                         values.forEach(function(value){
-                                             TransactionModel = {};
-                                             TransactionModel["transactionId"] = value.$id;
-                                             TransactionModel["customerName"] = value.name;
-                                             TransactionModel["customerMobile"] = value.mobile;
+            return $firebaseArray(firebaseDataService.Transaction).$loaded().then(function (snapshot) {
+                customerTransactions = [];
+                snapshot.forEach(function (childSnapshot) {
+                    var transactionId = childSnapshot.$id;
+                    var promise = $firebaseObject(firebaseDataService.customer.child(transactionId)).$loaded();
+                    customerTransactions.push(promise);
+                });
+                return Promise.all(customerTransactions);
+            }, function (error) {
+                // The Promise was rejected.
+                console.error(error);
+            }).then(function (values) {
+                allTransactionDatas = [];
+                values.forEach(function (value) {
+                    TransactionModel = {};
+                    TransactionModel["transactionId"] = value.$id;
+                    TransactionModel["customerName"] = value.name;
+                    TransactionModel["customerMobile"] = value.mobile;
 
-                                             allTransactionDatas.push(TransactionModel);
-                                        })
-                                        //console.log(allTransactionDatas);
-                                        return allTransactionDatas;
-                                    });
+                    allTransactionDatas.push(TransactionModel);
+                })
+                //console.log(allTransactionDatas);
+                return allTransactionDatas;
+            });
 
 
         }
@@ -96,30 +93,30 @@
             });
         }
 
-        function getAllVanAndAgents(){
-            return $firebaseArray(firebaseDataService.vanWithAgentService)
-            .$loaded().then(function (snapshot) {
-                            allVanAndAgentPromiseList = [];
-                            return Promise.all(snapshot);
-                        }, function (error) {
-                            console.error(error);
-                        }).then(function (values) {
-                             allVanAndAgents = [];
-                             values.forEach(function(value){
-                                 var vehicle = new function(){
-                                             this.vehicleName=value.vanName;
-                                             this.vehicleNumber=value.vanNumber;
-                                             this.agentName=value.agentName;
-                                             this.agentContact=value.agentMobile;
-                                         }
+        /*function getAllVanAndAgents(){
+         return $firebaseArray(firebaseDataService.vanWithAgentService)
+         .$loaded().then(function (snapshot) {
+         allVanAndAgentPromiseList = [];
+         return Promise.all(snapshot);
+         }, function (error) {
+         console.error(error);
+         }).then(function (values) {
+         allVanAndAgents = [];
+         values.forEach(function(value){
+         var vehicle = new function(){
+         this.vehicleName=value.vanName;
+         this.vehicleNumber=value.vanNumber;
+         this.agentName=value.agentName;
+         this.agentContact=value.agentMobile;
+         }
 
-                                 allVanAndAgents.push(vehicle);
-                            })
-                            console.log(allVanAndAgents);
-                            return allVanAndAgents;
-                        });
+         allVanAndAgents.push(vehicle);
+         })
+         console.log(allVanAndAgents);
+         return allVanAndAgents;
+         });
 
-        }
+         }*/
 
 
         function reset() {

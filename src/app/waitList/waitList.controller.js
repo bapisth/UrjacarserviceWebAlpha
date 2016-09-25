@@ -1,16 +1,16 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('app.waitList')
-    .controller('WaitListController', WaitListController);
+    angular
+        .module('app.waitList')
+        .controller('WaitListController', WaitListController);
 
-  WaitListController.$inject = ['partyService', 'user'];
+    WaitListController.$inject = ['partyService', 'user'];
 
-  function WaitListController(partyService, user) {
-    var vm = this;
+    function WaitListController(partyService, user) {
+        var vm = this;
 
-    vm.parties  = partyService.getPartiesByUser(user.uid);
-  }
+        vm.parties = partyService.getPartiesByUser(user.uid);
+    }
 
 })();

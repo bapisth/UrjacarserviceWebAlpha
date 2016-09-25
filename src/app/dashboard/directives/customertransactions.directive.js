@@ -1,7 +1,7 @@
 /**
  * Created by BAPI1 on 9/15/2016.
  */
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -16,8 +16,8 @@
             controllerAs: 'vm',
             bindToController: true,
             /*scope: {
-                transactions: '='
-            }*/
+             transactions: '='
+             }*/
             scope: {
                 customertransactions: '='
             }

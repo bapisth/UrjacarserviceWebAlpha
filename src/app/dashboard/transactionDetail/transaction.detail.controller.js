@@ -26,15 +26,15 @@
 
         var today = new Date();
         var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
+        var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
-        if(dd<10){
-            dd='0'+dd
+        if (dd < 10) {
+            dd = '0' + dd
         }
-        if(mm<10){
-            mm='0'+mm
+        if (mm < 10) {
+            mm = '0' + mm
         }
-        vm.today = dd+'/'+mm+'/'+yyyy;
+        vm.today = dd + '/' + mm + '/' + yyyy;
 
         vm.transactionId = $routeParams.transactionId;
         console.log(vm.transactionId);
@@ -117,7 +117,7 @@
 
             vm.serviceProcessDate[index] = vm.today;
             vm.showServiceProcessDate[index] = true;
-            
+
             console.log(vm.transactionArray[index]);
             var mainObj = vm.transactionArray[index];
             //First Add to Assign the Agent
@@ -149,20 +149,20 @@
 
         function onCloseTransaction(index) {
             /*vm.showServiceEndDate[index]= true;
-            vm.serviceCompleteDate[index] = vm.today;*/
+             vm.serviceCompleteDate[index] = vm.today;*/
 
             //vm.obj[index]["serviceProcessDate"] = vm.today;
 
             console.log(vm.transactionArray[index]);
             var mainObj = vm.transactionArray[index];
-            
+
             mainObj.requestStatus = "closed";
             mainObj.serviceCompleteDate = vm.today;
             var userId = vm.transactionId;
             var personCarNumber = mainObj.carNumber;
             var vanNumber = mainObj.vanNumberAssigned;
             mainObj.vanNumber = vanNumber;
-            console.log("Van Number :"+vanNumber);
+            console.log("Van Number :" + vanNumber);
 
             addVehicleService.closeTransaction(userId, personCarNumber, mainObj.transactionId, mainObj);
             addVehicleService.freeVanFromAgent(vanNumber);

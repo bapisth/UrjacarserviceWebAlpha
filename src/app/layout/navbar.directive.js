@@ -1,41 +1,41 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('app.layout')
-    .directive('gzNavbar', gzNavbar)
-    .directive('urjaFooter', urjaFooter);
+    angular
+        .module('app.layout')
+        .directive('gzNavbar', gzNavbar)
+        .directive('urjaFooter', urjaFooter);
 
-  function gzNavbar() {
-    return {
-      templateUrl: 'app/layout/navbar.html',
-      restrict: 'E',
-      scope: {},
-      controller: NavbarController,
-      controllerAs: 'vm'
-    };
-  }
-
-  function urjaFooter() {
-    return {
-      templateUrl: 'app/layout/footer.html',
-      restrict: 'E',
-      scope: {},
-    };
-  }
-
-  NavbarController.$inject = ['$location', 'authService'];
-
-  function NavbarController($location, authService) {
-    var vm = this;
-
-    vm.isLoggedIn = authService.isLoggedIn;
-    vm.logout = logout;
-
-    function logout() {
-      authService.logout();
-      $location.path('/');
+    function gzNavbar() {
+        return {
+            templateUrl: 'app/layout/navbar.html',
+            restrict: 'E',
+            scope: {},
+            controller: NavbarController,
+            controllerAs: 'vm'
+        };
     }
-  }
+
+    function urjaFooter() {
+        return {
+            templateUrl: 'app/layout/footer.html',
+            restrict: 'E',
+            scope: {},
+        };
+    }
+
+    NavbarController.$inject = ['$location', 'authService'];
+
+    function NavbarController($location, authService) {
+        var vm = this;
+
+        vm.isLoggedIn = authService.isLoggedIn;
+        vm.logout = logout;
+
+        function logout() {
+            authService.logout();
+            $location.path('/');
+        }
+    }
 
 })();
