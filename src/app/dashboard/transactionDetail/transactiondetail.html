@@ -86,6 +86,330 @@
             <div class="panel-heading">
                 <h6 class="panel-title"><i class="icon-checkbox-partial"></i> Customer Transaction Details</h6>
             </div>
+
+            <uib-tabset active="activeForm">
+                <uib-tab index="0" heading="Open Transactions">
+                    <!--<ng-form name="nestedForm">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" required ng-model="model.name"/>
+                        </div>
+                    </ng-form>-->
+                    <div ng-repeat="transaction in vm.openTransactionArray" class="panel panel-primary" ng-show="{{transaction.requestStatus == 'open'}}"><!--ng-show="{{transaction.requestStatus == 'open' || transaction.requestStatus == 'progress'}}"-->
+                        <div class="panel-heading">
+                            <!--<h2 class="label label-success">{{transaction.carNumber}}</h2>-->
+                            <h3 class="panel-title label">Details For Car : {{transaction.carNumber}}</h3><span ng-show="{{transaction.requestStatus == 'open'}}" class="label label-success pull-right">Open</span>
+                            <span  ng-show="{{transaction.requestStatus == 'closed'}}" class="label label-danger pull-right">Closed</span>
+                            <span  ng-show="{{transaction.requestStatus == 'progress'}}" class="label label-warning pull-right">In Progress</span>
+                        </div>
+                        <div class="panel-body" >
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Booking Id</label>
+                                        <input type="text" ng-model=transaction["transactionId"] class="form-control" readonly>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <label>Booking Date</label>
+                                        <input type="text" class="form-control" ng-model=transaction["serviceRequestDate"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control" ng-model=transaction["addressLine1"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"/>
+                                        <!--{{transaction.CarPickAddress.addressLine1}}, {{transaction.CarPickAddress.addressLine2}},{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}</textarea>-->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Landmark</label>
+                                        <input type="text" class="form-control" ng-model=transaction["landmark"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Customer Mobile No.{{transaction.CarPickAddress.mobileNumber}}</label>
+                                        <input type="text" class="form-control" ng-model=transaction["mobileNumber"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction.requestStatus == 'open'">
+                                        <label>Assign Agent</label>
+                                        <select class="form-control" ng-model="vm.selectedItem[$index]" ng-options="vanAgent.agentName for vanAgent in transaction['agentNames']" ng-click="vm.populateOptions($index)" ng-hide="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"><!--ng-model="vm.selectedAgentName" ng-options=""-->
+                                            <option value="">-- Choose Agent --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                        <label>Assign Agent</label>
+                                        <input type="text" class="form-control" ng-model=transaction["agentAssigned"] ng-show="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+
+                                    <!--The below code is bind with model-->
+                                    <!--<div class="col-lg-12" ng-show="transaction['serviceProcessDate'] != undefined">
+                                        <label>Processing Date</label>
+                                        <input type="text" class="form-control" ng-model=transaction["serviceProcessDate"] ng-disabled="transaction.requestStatus == 'closed' || transaction.requestStatus == 'progress'" readonly>
+                                    </div>-->
+                                    <div class="col-lg-12" ng-show="transaction['serviceCompleteDate'] != undefined">
+                                        <label>Completion Date</label>
+                                        <input type="text" class="form-control" ng-model="transaction['serviceProcessDate']" ng-show="transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+
+                                    <!--If there is no data previously in the database-->
+                                    <!--<div class="col-lg-12" ng-show="vm.showServiceProcessDate[$index] && transaction['serviceProcessDate'] == undefined">
+                                        <label>Processing Date</label>
+                                        <input type="text" class="form-control" ng-model="vm.serviceProcessDate[$index]" ng-disabled="transaction.requestStatus == 'closed' || transaction.requestStatus == 'progress'" readonly>
+                                    </div>-->
+                                    <div class="col-lg-12" ng-show="vm.showServiceEndDate[$index] && transaction['serviceCompleteDate'] == undefined">
+                                        <label>Completion Date</label>
+                                        <input type="text" class="form-control" ng-model="vm.serviceCompleteDate[$index]" ng-show="transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top: 20px">
+
+                                <div class="col-lg-8">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Service Requested</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-lg-12" >
+                                                <div class="col-lg-4 well" ng-repeat="service in transaction.serviceRequestList" >
+                                                    {{service.code}}- {{service.desc}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-4">
+                                            <button type="button" ng-show="transaction.requestStatus == 'progress'"  value="{{transaction.$id}}" class="btn btn-primary pull-right" ng-click="vm.onCloseTransaction($index)" ng-disabled="transaction.requestStatus == 'closed'" style="margin-right:10px">Close Transaction</button>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <button type="button" value="{{transaction.$id}}" class="btn btn-primary pull-right" ng-show="transaction.requestStatus == 'open'" ng-click="vm.onClick($index)" ng-disabled="transaction.requestStatus == 'progress' || transaction.requestStatus == 'progress'" style="margin-right:10px">Assign Van</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="1" heading="In-progress Transactions">
+                    <div ng-repeat="transaction in vm.progressTransactionArray" class="panel panel-primary" ng-show="{{transaction.requestStatus == 'progress'}}"><!--ng-show="{{transaction.requestStatus == 'open' || transaction.requestStatus == 'progress'}}"-->
+                        <div class="panel-heading">
+                            <!--<h2 class="label label-success">{{transaction.carNumber}}</h2>-->
+                            <h3 class="panel-title label">Details For Car : {{transaction.carNumber}}</h3><span ng-show="{{transaction.requestStatus == 'open'}}" class="label label-success pull-right">Open</span>
+                            <span  ng-show="{{transaction.requestStatus == 'closed'}}" class="label label-danger pull-right">Closed</span>
+                            <span  ng-show="{{transaction.requestStatus == 'progress'}}" class="label label-warning pull-right">In Progress</span>
+                        </div>
+                        <div class="panel-body" >
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Booking Id</label>
+                                        <input type="text" ng-model=transaction["transactionId"] class="form-control" readonly>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <label>Booking Date</label>
+                                        <input type="text" class="form-control" ng-model=transaction["serviceRequestDate"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control" ng-model=transaction["addressLine1"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"/>
+                                        <!--{{transaction.CarPickAddress.addressLine1}}, {{transaction.CarPickAddress.addressLine2}},{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}</textarea>-->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Landmark</label>
+                                        <input type="text" class="form-control" ng-model=transaction["landmark"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Customer Mobile No.{{transaction.CarPickAddress.mobileNumber}}</label>
+                                        <input type="text" class="form-control" ng-model=transaction["mobileNumber"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction.requestStatus == 'open'">
+                                        <label>Assign Agent</label>
+                                        <select class="form-control" ng-model="vm.selectedItem[$index]" ng-options="vanAgent.agentName for vanAgent in transaction['agentNames']" ng-click="vm.populateOptions($index)" ng-hide="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"><!--ng-model="vm.selectedAgentName" ng-options=""-->
+                                            <option value="">-- Choose Agent --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                        <label>Assign Agent</label>
+                                        <input type="text" class="form-control" ng-model=transaction["agentAssigned"] ng-show="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+
+                                    <!--The below code is bind with model-->
+                                    <div class="col-lg-12" ng-show="transaction['serviceProcessDate'] != undefined">
+                                        <label>Processing Date</label>
+                                        <input type="text" class="form-control" ng-model=transaction["serviceProcessDate"] ng-disabled="transaction.requestStatus == 'closed' || transaction.requestStatus == 'progress'" readonly>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction['serviceCompleteDate'] != undefined">
+                                        <label>Completion Date</label>
+                                        <input type="text" class="form-control" ng-model="transaction['serviceProcessDate']" ng-show="transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+
+                                    <!--If there is no data previously in the database-->
+                                    <div class="col-lg-12" ng-show="vm.showServiceProcessDate[$index] && transaction['serviceProcessDate'] == undefined">
+                                        <label>Processing Date</label>
+                                        <input type="text" class="form-control" ng-model="vm.serviceProcessDate[$index]" ng-disabled="transaction.requestStatus == 'closed' || transaction.requestStatus == 'progress'" readonly>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="vm.showServiceEndDate[$index] && transaction['serviceCompleteDate'] == undefined">
+                                        <label>Completion Date</label>
+                                        <input type="text" class="form-control" ng-model="vm.serviceCompleteDate[$index]" ng-show="transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top: 20px">
+
+                                <div class="col-lg-8">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Service Requested</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-lg-12" >
+                                                <div class="col-lg-4 well" ng-repeat="service in transaction.serviceRequestList" >
+                                                    {{service.code}}- {{service.desc}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-4">
+                                            <button type="button" ng-show="transaction.requestStatus == 'progress'"  value="{{transaction.$id}}" class="btn btn-primary pull-right" ng-click="vm.onCloseTransaction($index)" ng-disabled="transaction.requestStatus == 'closed'" style="margin-right:10px">Close Transaction</button>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <button type="button" value="{{transaction.$id}}" class="btn btn-primary pull-right" ng-show="transaction.requestStatus == 'open'" ng-click="vm.onClick($index)" ng-disabled="transaction.requestStatus == 'progress' || transaction.requestStatus == 'progress'" style="margin-right:10px">Assign Van</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="2" heading="Closed Transactions">
+                    <div ng-repeat="transaction in vm.closedTransactionArray" class="panel panel-primary" ng-show="{{transaction.requestStatus == 'closed'}}"><!--ng-show="{{transaction.requestStatus == 'open' || transaction.requestStatus == 'progress'}}"-->
+                        <div class="panel-heading">
+                            <!--<h2 class="label label-success">{{transaction.carNumber}}</h2>-->
+                            <h3 class="panel-title label">Details For Car : {{transaction.carNumber}}</h3><span ng-show="{{transaction.requestStatus == 'open'}}" class="label label-success pull-right">Open</span>
+                            <span  ng-show="{{transaction.requestStatus == 'closed'}}" class="label label-danger pull-right">Closed</span>
+                            <span  ng-show="{{transaction.requestStatus == 'progress'}}" class="label label-warning pull-right">In Progress</span>
+                        </div>
+                        <div class="panel-body" >
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Booking Id</label>
+                                        <input type="text" ng-model=transaction["transactionId"] class="form-control" readonly>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <label>Booking Date</label>
+                                        <input type="text" class="form-control" ng-model=transaction["serviceRequestDate"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control" ng-model=transaction["addressLine1"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"/>
+                                        <!--{{transaction.CarPickAddress.addressLine1}}, {{transaction.CarPickAddress.addressLine2}},{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}</textarea>-->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Landmark</label>
+                                        <input type="text" class="form-control" ng-model=transaction["landmark"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="col-lg-12">
+                                        <label>Customer Mobile No.{{transaction.CarPickAddress.mobileNumber}}</label>
+                                        <input type="text" class="form-control" ng-model=transaction["mobileNumber"] ng-readonly="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction.requestStatus == 'open'">
+                                        <label>Assign Agent</label>
+                                        <select class="form-control" ng-model="vm.selectedItem[$index]" ng-options="vanAgent.agentName for vanAgent in transaction['agentNames']" ng-click="vm.populateOptions($index)" ng-hide="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'"><!--ng-model="vm.selectedAgentName" ng-options=""-->
+                                            <option value="">-- Choose Agent --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'">
+                                        <label>Assign Agent</label>
+                                        <input type="text" class="form-control" ng-model=transaction["agentAssigned"] ng-show="transaction.requestStatus == 'progress' || transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+
+                                    <!--The below code is bind with model-->
+                                    <div class="col-lg-12" ng-show="transaction['serviceProcessDate'] != undefined">
+                                        <label>Processing Date</label>
+                                        <input type="text" class="form-control" ng-model=transaction["serviceProcessDate"] ng-disabled="transaction.requestStatus == 'closed' || transaction.requestStatus == 'progress'" readonly>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="transaction['serviceCompleteDate'] != undefined">
+                                        <label>Completion Date</label>
+                                        <input type="text" class="form-control" ng-model="transaction['serviceProcessDate']" ng-show="transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+
+                                    <!--If there is no data previously in the database-->
+                                    <div class="col-lg-12" ng-show="vm.showServiceProcessDate[$index] && transaction['serviceProcessDate'] == undefined">
+                                        <label>Processing Date</label>
+                                        <input type="text" class="form-control" ng-model="vm.serviceProcessDate[$index]" ng-disabled="transaction.requestStatus == 'closed' || transaction.requestStatus == 'progress'" readonly>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="vm.showServiceEndDate[$index] && transaction['serviceCompleteDate'] == undefined">
+                                        <label>Completion Date</label>
+                                        <input type="text" class="form-control" ng-model="vm.serviceCompleteDate[$index]" ng-show="transaction.requestStatus == 'closed'" readonly>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top: 20px">
+
+                                <div class="col-lg-8">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Service Requested</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-lg-12" >
+                                                <div class="col-lg-4 well" ng-repeat="service in transaction.serviceRequestList" >
+                                                    {{service.code}}- {{service.desc}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-4">
+                                            <button type="button" ng-show="transaction.requestStatus == 'progress'"  value="{{transaction.$id}}" class="btn btn-primary pull-right" ng-click="vm.onCloseTransaction($index)" ng-disabled="transaction.requestStatus == 'closed'" style="margin-right:10px">Close Transaction</button>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <button type="button" value="{{transaction.$id}}" class="btn btn-primary pull-right" ng-show="transaction.requestStatus == 'open'" ng-click="vm.onClick($index)" ng-disabled="transaction.requestStatus == 'progress' || transaction.requestStatus == 'progress'" style="margin-right:10px">Assign Van</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
             <!--<div class="panel-heading">
                 Search by Car Number: <label>Name only <input ng-model="search.carNumber"></label><br>
             </div>-->
