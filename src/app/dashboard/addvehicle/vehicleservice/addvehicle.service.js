@@ -5,9 +5,9 @@
         .module('app.dashBoard')
         .factory('addVehicleService', addVehicleService);
 
-    addVehicleService.$inject = ['$firebaseAuth', 'firebaseDataService', '$q'];
+    addVehicleService.$inject = ['$firebaseAuth', 'firebaseDataService', '$firebaseArray'];
 
-    function addVehicleService($firebaseAuth, firebaseDataService) {
+    function addVehicleService($firebaseAuth, firebaseDataService, $firebaseArray) {
 
         var service = {
             addVanWithAgent: addVanWithAgent,
@@ -15,7 +15,8 @@
             isAgentAssigned: isAgentAssigned,
             updateTransactionStatus : updateTransactionStatus,
             closeTransaction:closeTransaction,
-            freeVanFromAgent:freeVanFromAgent
+            freeVanFromAgent:freeVanFromAgent,
+            getVanAndAgentList : getVanAndAgentList
         };
 
         return service;
@@ -93,6 +94,17 @@
             firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).update({
                 requestStatus:"closed",
                 serviceCompleteDate:updatedData.serviceCompleteDate
+            });
+        }
+
+        function getVanAndAgentList(){
+            return $firebaseArray(firebaseDataService.vanWithAgentService).$loaded().then(function(snapshot){
+                var vehicleList = [];
+                snapshot.forEach(function(data, index){
+                    console.log(data);
+                    vehicleList.push(data);
+                })
+                return vehicleList;
             });
         }
 

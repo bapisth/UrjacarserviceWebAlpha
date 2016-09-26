@@ -13,11 +13,6 @@
         vm.dashboardContent = "app/dashboard/transactionlist.html"
 
         var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
-        //console.log("allTransactionData:"+allTransactionData);
-        //vm.customers = dashboardService.getAllCustomers();
-        //vm.transactions = dashboardService.getAllTransactions();
-        //vm.customerTransactions = dashboardService.getAllTransactions();
-
         vm.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
             var defer = $q.defer();
             console.log(allTransactionData)

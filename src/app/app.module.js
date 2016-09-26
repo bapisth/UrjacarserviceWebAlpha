@@ -10,6 +10,7 @@
             'firebase',
             'datatables',
             'ui.bootstrap',
+            'ngTable',
 
             // Custom modules.
             'app.auth',

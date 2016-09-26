@@ -19,7 +19,8 @@
                 error: '=',
                 buttonTitle: '@',
                 vanAddedmessage: '@',
-                submitAction: '&'
+                submitAction: '&',
+                vehicles : '='
             }
         };
     }

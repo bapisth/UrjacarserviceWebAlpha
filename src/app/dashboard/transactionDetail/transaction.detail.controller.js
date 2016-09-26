@@ -250,16 +250,19 @@
         //vm.vanWithAgents = vanAndAgents;
 
         function onClick(index) {
-
-            vm.serviceProcessDate[index] = vm.today;
-            vm.showServiceProcessDate[index] = true;
-
+            var vanNumber = vm.getVanNumber(index);
+            if(vanNumber ==undefined || vanNumber==""){
+                alert('Choose an Agent First!');
+                return;
+            }
             console.log(vm.openTransactionArray[index]);
             var mainObj = vm.openTransactionArray[index];
+            vm.serviceProcessDate[index] = vm.today;
+            vm.showServiceProcessDate[index] = true;
             //First Add to Assign the Agent
             var personCarNumber = mainObj.carNumber;
 
-            var vanNumber = vm.getVanNumber(index);
+
             mainObj.requestStatus = "progress";
             mainObj.vanNumber = vanNumber;
             var userId = vm.transactionId;

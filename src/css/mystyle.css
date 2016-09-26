@@ -484,9 +484,9 @@ blockquote {
 
 /*===== Inversed navbar =====*/
 
-.navbar-inverse {
+/*.navbar-inverse {
   background-color: #00b7ff;
-}
+}*/
 .navbar-inverse .navbar-nav > li > a {
   color: #fff;
 }

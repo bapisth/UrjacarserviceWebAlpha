@@ -20,12 +20,14 @@
         </ul>
 
         <div class="visible-xs breadcrumb-toggle">
-            <a class="btn btn-link btn-lg btn-icon" data-toggle="collapse" data-target=".breadcrumb-buttons"><i class="icon-menu2"></i></a>
+            <a class="btn btn-link btn-lg btn-icon" data-toggle="collapse" data-target=".breadcrumb-buttons"><i
+                    class="icon-menu2"></i></a>
         </div>
 
         <ul class="breadcrumb-buttons collapse">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-search3"></i> <span>Search</span> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-search3"></i>
+                    <span>Search</span> <b class="caret"></b></a>
                 <div class="popup dropdown-menu dropdown-menu-right">
                     <div class="popup-header">
                         <a href="#" class="pull-left"><i class="icon-paragraph-justify"></i></a>
@@ -33,7 +35,8 @@
                         <a href="#" class="pull-right"><i class="icon-new-tab"></i></a>
                     </div>
                     <form action="#" class="breadcrumb-search">
-                        <input type="text" placeholder="Type and hit enter..." name="search" class="form-control autocomplete">
+                        <input type="text" placeholder="Type and hit enter..." name="search"
+                               class="form-control autocomplete">
                         <div class="row">
                             <div class="col-xs-6">
                                 <label class="radio">
@@ -72,11 +75,36 @@
             <h6 class="panel-title"><i class="icon-checkbox-partial"></i> Add Vehicle</h6>
         </div>
 
+        <div class="panel-body">
+            <!--Add Vehicle-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <urja-addvehicle button-title="{{vm.buttonTitle}}" submit-action="vm.addVehicle(vehicle)" van-addedmessage="{{vm.vanAddedMsg}}"></urja-addvehicle>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                        <!--Vehicle List -->
+                        <table ng-table="vm.defaultConfigTableParams" class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="vehicle in $data">
+                                <td data-title="'Van Number'" filter="{ vanNumber: 'text'}" sortable="'vanNumber'">{{vehicle.vanNumber}}</td>
+                                <td data-title="'Van Name'"  filter="{ vanName: 'text'}" sortable="'vehicle.vanName'">{{vehicle.vanName}}</td>
+                                <td data-title="'Agent Name'" filter="{ agentName: 'text'}" sortable="'agentName'">{{vehicle.agentName}}</td>
+                                <td data-title="'Agent Mobile'"  filter="{ agentMobile: 'text'}" sortable="'agentMobile'">{{vehicle.agentMobile}}</td>
+                                <td data-title="'is the Agent Assigned With Task?'" sortable="'isAgentAssignedWithTask'">{{vehicle.isAgentAssignedWithTask ? "Yes" : "No"}}</td>
+                            </tr>
+                        </table>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
         <!--Add Vehicle Form here-->
-        <urja-addvehicle button-title="{{vm.buttonTitle}}" submit-action="vm.addVehicle(vehicle)" van-addedmessage="{{vm.vanAddedMsg}}"></urja-addvehicle>
-
-
-
 
 
     </div>

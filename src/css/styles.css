@@ -2816,7 +2816,7 @@ body > .jGrowl {
 .right-box {
   float: right;
 }
-.filter {
+/*.filter {
   position: absolute;
   right: 10px;
   top: 6px;
@@ -2825,7 +2825,7 @@ body > .jGrowl {
   border: none;
   color: #808080;
   padding: 0;
-}
+}*/
 .dual-control {
   text-align: center;
   width: 90px;
