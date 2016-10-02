@@ -5,9 +5,9 @@
         .module('app.dashBoard')
         .factory('addVehicleService', addVehicleService);
 
-    addVehicleService.$inject = ['$firebaseAuth', 'firebaseDataService', '$firebaseArray'];
+    addVehicleService.$inject = ['$firebaseAuth', 'firebaseDataService', '$firebaseArray','CLD_MSG_KEY', '$http'];
 
-    function addVehicleService($firebaseAuth, firebaseDataService, $firebaseArray) {
+    function addVehicleService($firebaseAuth, firebaseDataService, $firebaseArray, CLD_MSG_KEY, $http) {
 
         var service = {
             addVanWithAgent: addVanWithAgent,
@@ -16,7 +16,8 @@
             updateTransactionStatus : updateTransactionStatus,
             closeTransaction:closeTransaction,
             freeVanFromAgent:freeVanFromAgent,
-            getVanAndAgentList : getVanAndAgentList
+            getVanAndAgentList : getVanAndAgentList,
+            sendPushNotification : sendPushNotification
         };
 
         return service;
@@ -48,8 +49,9 @@
                 });
         }
 
-        function assignVanToAgent(vanNumber) {
+        function assignVanToAgent(vanNumber, userId) {
             firebaseDataService.vanWithAgentService.child(vanNumber).child('isAgentAssignedWithTask').set(true);
+            sendPushNotification(userId);
         }
 
         function freeVanFromAgent(vanNumber) {
@@ -106,6 +108,25 @@
                 })
                 return vehicleList;
             });
+        }
+        
+        function sendPushNotification(userId) {
+            firebaseDataService.customer.child(userId).once('value', function (dataSnapshot) {
+                var snapShot = dataSnapshot.val();
+                var customerName = snapShot.name;
+                var regToken = snapShot.regToken;
+                var data = {};
+                data.to = regToken;
+                data.notification = {};
+                data.notification.title="Request Status";
+                data.notification.body="Hi,"+customerName+"\n We have processed your request,\n The agent is assigned , he will be arriving in the address specified very shortly. ";
+                $http.post('https://fcm.googleapis.com/fcm/send', data,
+                    {headers: { 'Authorization': "key="+CLD_MSG_KEY, 'Content-Type': 'application/json'}})
+                    .then(function(response) {
+                        console.log(response);
+                    });
+            });
+
         }
 
     }

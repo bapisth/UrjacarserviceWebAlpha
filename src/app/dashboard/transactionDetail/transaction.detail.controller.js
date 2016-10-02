@@ -268,7 +268,7 @@
             var userId = vm.transactionId;
 
             addVehicleService.updateTransactionStatus(userId, personCarNumber, mainObj.transactionId, mainObj, vm.selectedItem[index], vm.serviceProcessDate[index]);
-            addVehicleService.assignVanToAgent(vanNumber);
+            addVehicleService.assignVanToAgent(vanNumber, userId);
 
         }
 
