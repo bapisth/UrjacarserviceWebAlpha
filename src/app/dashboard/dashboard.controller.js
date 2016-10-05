@@ -29,10 +29,6 @@
             DTColumnBuilder.newColumn('customerName').withTitle('Customer Name'),
             DTColumnBuilder.newColumn('customerMobile').withTitle('Customer Mobile')//.notVisible()
         ];
-
-
-        //vm.customerTransactions = vm.customers;
-        console.log("21313123:" + vm.customers);
     }
 
 })();

@@ -46,7 +46,6 @@
 
         firebaseDataService.vanWithAgentService.on('value', function (snap) {
             vm.vanAndAgents = [];
-            console.log('Asila re Asila.........');
             snap.forEach(function (childSnapshot) {
                 var key = childSnapshot.getKey();
                 var childData = childSnapshot.val();
@@ -150,6 +149,8 @@
                                 vm.obj[index]["serviceRequestDate"] = data.serviceRequestDate;
                                 vm.obj[index]["requestStatus"] = data.requestStatus;
 
+                                console.log("Car Number :"+data.$id);
+
                                 vm.obj[index]["transactionId"] = data.$id;
                                 vm.obj[index]["addressLine1"] = data.CarPickAddress.addressLine1;
                                 vm.obj[index]["addressLine2"] = data.CarPickAddress.addressLine2;
@@ -159,7 +160,16 @@
                                 vm.obj[index]["landmark"] = data.CarPickAddress.landmark;
                                 vm.obj[index]["mobileNumber"] = data.CarPickAddress.mobileNumber;
                                 vm.obj[index]["serviceRequestList"] = data.serviceRequestList;
+                                //calculate Total Price for this Car
+                                var serviceList = data.serviceRequestList;
+                                var totalPriceForThisCar = 0;
+                                serviceList.forEach(function (serv, k) {
+                                    totalPriceForThisCar += parseInt(serv.vehiclegroup);
+                                });
 
+                                console.log("totalPriceForThisCar = "+totalPriceForThisCar);
+                                vm.obj[index]["totalPriceForThisCar"] = totalPriceForThisCar;
+                                vm.obj[index]["amountPaid"] = "0";
                                 vm.obj[index]["buttonId"] = childSnapshot.$id;
                                 vm.obj[index]["agentNames"] = [];
 
@@ -219,6 +229,9 @@
                                 vm.obj[index]["landmark"] = data.CarPickAddress.landmark;
                                 vm.obj[index]["mobileNumber"] = data.CarPickAddress.mobileNumber;
                                 vm.obj[index]["serviceRequestList"] = data.serviceRequestList;
+
+                                vm.obj[index]["totalPrice"] = data.totalPrice;
+                                vm.obj[index]["amountPaid"] = data.amountPaid;
 
                                 vm.obj[index]["buttonId"] = childSnapshot.$id;
                                 vm.obj[index]["agentNames"] = [];
@@ -295,6 +308,17 @@
             console.log(vm.progressTransactionArray[index]);
             var mainObj = vm.progressTransactionArray[index];
 
+            if (parseInt(mainObj.amountPaid)<=0){
+                alert('Enter Paid Amount!');
+                return;
+            }
+
+            var serviceList = mainObj.serviceRequestList;
+            var totalPriceForThisCar = 0;
+            serviceList.forEach(function (serv, k) {
+                totalPriceForThisCar += parseInt(serv.vehiclegroup);
+            });
+
             mainObj.requestStatus = "closed";
             mainObj.serviceCompleteDate = vm.today;
             var userId = vm.transactionId;
@@ -303,7 +327,7 @@
             mainObj.vanNumber = vanNumber;
             console.log("Van Number :" + vanNumber);
 
-            addVehicleService.closeTransaction(userId, personCarNumber, mainObj.transactionId, mainObj);
+            addVehicleService.closeTransaction(userId, personCarNumber, mainObj.transactionId, mainObj, mainObj.amountPaid, totalPriceForThisCar);
             addVehicleService.freeVanFromAgent(vanNumber);
         }
 

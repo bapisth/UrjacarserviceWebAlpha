@@ -92,10 +92,12 @@
             });
         }
 
-        function closeTransaction(userid, carNumber, transactionId, updatedData){
+        function closeTransaction(userid, carNumber, transactionId, updatedData, amountPaid, totalPrice){
             firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).update({
                 requestStatus:"closed",
-                serviceCompleteDate:updatedData.serviceCompleteDate
+                serviceCompleteDate:updatedData.serviceCompleteDate,
+                amountPaid :parseInt(amountPaid),
+                totalPrice:totalPrice
             });
         }
 
