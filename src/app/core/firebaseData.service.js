@@ -13,7 +13,6 @@
       BikeService:root.child('BikeService'),
       Booking:root.child('Booking'),
       CarService:root.child('CarService'),
-      Customer:root.child('Customer'),
       ServiceAgent:root.child('ServiceAgent'),
       ServiceAgentAssignmentArea:root.child('ServiceAgentAssignmentArea'),
       ServiceAgentCurrentLocation:root.child('ServiceAgentCurrentLocation'),
