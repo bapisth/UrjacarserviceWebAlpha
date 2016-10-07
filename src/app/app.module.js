@@ -19,7 +19,8 @@
             'app.layout',
             'app.waitList',
             'app.dashBoard',
-            'app.dashBoard.admin'
+            'app.dashBoard.admin',
+            'app.dashboard.dailytransaction'
         ])
         .config(configFunction)
         .run(runFunction);
