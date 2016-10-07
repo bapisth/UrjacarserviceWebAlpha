@@ -1,0 +1,196 @@
+<div class="page-content">
+
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-title">
+            <h3>Admin Settings </h3>
+        </div>
+
+
+    </div>
+    <!-- /page header -->
+
+
+    <!-- Breadcrumbs line -->
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">admin settings</li>
+        </ul>
+
+        <div class="visible-xs breadcrumb-toggle">
+            <a class="btn btn-link btn-lg btn-icon" data-toggle="collapse" data-target=".breadcrumb-buttons"><i class="icon-menu2"></i></a>
+        </div>
+
+        <ul class="breadcrumb-buttons collapse">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-search3"></i> <span>Search</span> <b class="caret"></b></a>
+                <div class="popup dropdown-menu dropdown-menu-right">
+                    <div class="popup-header">
+                        <a href="#" class="pull-left"><i class="icon-paragraph-justify"></i></a>
+                        <span>Quick search</span>
+                        <a href="#" class="pull-right"><i class="icon-new-tab"></i></a>
+                    </div>
+                    <form action="#" class="breadcrumb-search">
+                        <input type="text" placeholder="Type and hit enter..." name="search" class="form-control autocomplete">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label class="radio">
+                                    <input type="radio" name="search-option" class="styled" checked="checked">
+                                    Everywhere
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="search-option" class="styled">
+                                    Invoices
+                                </label>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label class="radio">
+                                    <input type="radio" name="search-option" class="styled">
+                                    Users
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="search-option" class="styled">
+                                    Orders
+                                </label>
+                            </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-block btn-success" value="Search">
+                    </form>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    <!-- /breadcrumbs line -->
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h6 class="panel-title"><i class="icon-checkbox-partial"></i> Master Creation</h6>
+        </div>
+
+        <!--List of Customers-->
+        <!--<urja-customerlist customers="vm.customers"></urja-customerlist>
+        <urja-customer-transaction-list transactions="vm.transactions"></urja-customer-transaction-list>
+        <urja-transaction customertransactions="vm.customerTransactions"></urja-transaction>
+        <datatable-wrapper>
+            <table datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" class="row-border hover">
+            </table>
+        </datatable-wrapper>-->
+        <style>
+            .main{
+                margin-top: 70px;
+            }
+
+            h1.title {
+                font-size: 50px;
+                font-family: 'Passion One', cursive;
+                font-weight: 400;
+            }
+
+            hr{
+                width: 10%;
+                color: #fff;
+            }
+
+            .form-group{
+                margin-bottom: 15px;
+            }
+
+            label{
+                margin-bottom: 15px;
+            }
+
+            input,
+            input::-webkit-input-placeholder {
+                font-size: 11px;
+                padding-top: 3px;
+            }
+
+            .main-login{
+                background-color: #aaaaaa;
+                /* shadows and rounded borders */
+                -moz-border-radius: 2px;
+                -webkit-border-radius: 2px;
+                border-radius: 2px;
+                -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+
+            }
+
+            .main-center{
+                margin-top: 30px;
+                margin: 0 auto;
+                max-width: 330px;
+                padding: 40px 40px;
+
+            }
+
+            .login-button{
+                margin-top: 5px;
+            }
+
+            .login-register{
+                font-size: 11px;
+                text-align: center;
+            }
+
+        </style>
+        <!-- Google Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="main-login main-center">
+                        <form class="form-horizontal" method="post" action="#">
+
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input ng-model="vm.adminUser.name" type="text" class="form-control" id="name"   placeholder="Enter your Name"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                        <input ng-model="vm.adminUser.email" type="text" class="form-control" name="email" readonly id="email"  placeholder="Enter your Email"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="cols-sm-2 control-label">Mobile</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-mobile fa" aria-hidden="true"></i></span>
+                                        <input ng-model="vm.adminUser.mobile" type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <button ng-click="vm.updateAdminProfile(vm.adminUser)" type="button" class="btn btn-primary btn-lg btn-block login-button">Update Profile</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+</div>

@@ -18,7 +18,8 @@
             'app.landing',
             'app.layout',
             'app.waitList',
-            'app.dashBoard'
+            'app.dashBoard',
+            'app.dashBoard.admin'
         ])
         .config(configFunction)
         .run(runFunction);

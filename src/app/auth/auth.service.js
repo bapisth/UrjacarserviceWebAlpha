@@ -16,7 +16,8 @@
             login: login,
             logout: logout,
             isLoggedIn: isLoggedIn,
-            sendWelcomeEmail: sendWelcomeEmail
+            sendWelcomeEmail: sendWelcomeEmail,
+            changePassword: changePassword
         };
 
         return service;
@@ -44,6 +45,10 @@
             firebaseDataService.emails.push({
                 emailAddress: emailAddress
             });
+        }
+        
+        function changePassword() {
+            
         }
 
     }

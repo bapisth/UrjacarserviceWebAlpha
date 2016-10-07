@@ -27,6 +27,7 @@
       users: root.child('users'),
       vanWithAgentService: root.child('vanwithagent'),
       AdminNotification: root.child('AdminNotification'),
+      AdminUser: root.child('AdminUser'),
       //emails: root.child('emails'),
       textMessages: root.child('textMessages')
     };
