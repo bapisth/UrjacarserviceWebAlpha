@@ -188,8 +188,8 @@
                                 vm.obj[index]["vanNumberAssigned"] = data.vanNumberAssigned;
 
                                 vm.progressTransactionArray.push(vm.obj[index]);
-                                console.log("Progress Trans Arr :" +vm.progressTransactionArray);
-                                console.log(vm.progressTransactionArray[index]["serviceRequestDate"]);
+                                /*console.log("Progress Trans Arr :" +vm.progressTransactionArray);
+                                console.log(vm.progressTransactionArray[index]["serviceRequestDate"]);*/
                             }
 
                         });
@@ -251,7 +251,7 @@
                                 vm.obj[index]["vanNumberAssigned"] = data.vanNumberAssigned;
 
                                 vm.closedTransactionArray.push(vm.obj[index]);
-                                console.log(vm.closedTransactionArray);
+                                console.log("Closed Transaction Array :"+vm.closedTransactionArray);
                                 console.log(vm.closedTransactionArray[index]["serviceRequestDate"]);
                             }
                         });
