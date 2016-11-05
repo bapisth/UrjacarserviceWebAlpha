@@ -11,6 +11,7 @@
             'datatables',
             'ui.bootstrap',
             'ngTable',
+            'ngAudio',
 
             // Custom modules.
             'app.auth',

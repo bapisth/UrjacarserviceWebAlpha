@@ -18,13 +18,14 @@
         };
     }
 
-    NavbarController.$inject = ['firebaseDataService', 'authService', '$location'];
+    NavbarController.$inject = ['firebaseDataService', 'authService', '$location', 'ngAudio'];
 
-    function NavbarController(firebaseDataService, authService, $location) {
+    function NavbarController(firebaseDataService, authService, $location, ngAudio) {
         var vm = this;
         vm.messageCount = 0;
         vm.newTransactionCounter = 0;
         vm.logout = logout;
+        vm.audio = ngAudio.load('app/dashboard/directives/notification.mp3');
 
         //Display user count if new user comes
         firebaseDataService.customer.on('value', function (data) {
@@ -37,6 +38,7 @@
 
             console.log('new record', newMessSnapshot.getKey());
             vm.newTransactionCounter += 1;
+            vm.audio.play();
 
             var adminNotification = newMessSnapshot.exportVal();
 
