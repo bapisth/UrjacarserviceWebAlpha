@@ -17,7 +17,8 @@
             closeTransaction:closeTransaction,
             freeVanFromAgent:freeVanFromAgent,
             getVanAndAgentList : getVanAndAgentList,
-            sendPushNotification : sendPushNotification
+            sendPushNotification : sendPushNotification,
+            agentDailyWorkService : agentDailyWorkService
         };
 
         return service;
@@ -68,8 +69,8 @@
                 });
         }
 
-        function updateTransactionStatus(userid, carNumber, transactionId, updatedData, selectedItem, processDate){
-            firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).child("CarPickAddress").update({
+        function updateTransactionStatus(userid, transactionId, carNumber, updatedData, selectedItem, processDate){
+            firebaseDataService.Transaction.child(userid).child(transactionId).child(carNumber).child("CarPickAddress").update({
                 addressLine1:updatedData.addressLine1,
                 addressLine2:updatedData.addressLine2,
                 landmark: updatedData.landmark,
@@ -82,9 +83,9 @@
                 } else {
                     console.log('Synchronization succeeded');
                 }
-            });//requestStatus : updatedData.requestStatus,
+            });//requestStatus : updatedData.requestStatus,carNumber
 
-            firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).update({
+            firebaseDataService.Transaction.child(userid).child(transactionId).child(carNumber).update({
                 requestStatus:updatedData.requestStatus,
                 agentAssigned:selectedItem.agentName,
                 vanNumberAssigned:updatedData.vanNumber,
@@ -93,7 +94,7 @@
         }
 
         function closeTransaction(userid, carNumber, transactionId, updatedData, amountPaid, totalPrice){
-            firebaseDataService.Transaction.child(userid).child(carNumber).child(transactionId).update({
+            firebaseDataService.Transaction.child(userid).child(transactionId).child(carNumber).update({
                 requestStatus:"closed",
                 serviceCompleteDate:updatedData.serviceCompleteDate,
                 amountPaid :parseInt(amountPaid),
@@ -129,6 +130,10 @@
                     });
             });
 
+        }
+        
+        function agentDailyWorkService(vanNumber) {
+            firebaseDataService.AgentDailyWork.child(vanNumber)
         }
 
     }

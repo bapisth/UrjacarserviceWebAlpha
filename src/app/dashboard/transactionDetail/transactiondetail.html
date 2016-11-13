@@ -97,8 +97,8 @@
                     </ng-form>-->
                     <div ng-repeat="transaction in vm.openTransactionArray" class="panel panel-primary" ng-show="{{transaction.requestStatus == 'open'}}"><!--ng-show="{{transaction.requestStatus == 'open' || transaction.requestStatus == 'progress'}}"-->
                         <div class="panel-heading">
-                            <!--<h2 class="label label-success">{{transaction.carNumber}}</h2>-->
-                            <h3 class="panel-title label">Details For Car : {{transaction.transactionId}}</h3><span ng-show="{{transaction.requestStatus == 'open'}}" class="label label-success pull-right">Open</span>
+                            <!--<h2 class="label label-success">{{transaction.carNumber}}</h2> Details For Car : {{transaction.transactionId}}-->
+                            <h3 class="panel-title label"></h3><span ng-show="{{transaction.requestStatus == 'open'}}" class="label label-success pull-right">Open</span>
                             <span  ng-show="{{transaction.requestStatus == 'closed'}}" class="label label-danger pull-right">Closed</span>
                             <span  ng-show="{{transaction.requestStatus == 'progress'}}" class="label label-warning pull-right">In Progress</span>
                         </div>
@@ -173,9 +173,19 @@
                                             <h3 class="panel-title">Service Requested</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <div class="col-lg-12" >
-                                                <div class="col-lg-4 well" ng-repeat="service in transaction.serviceRequestList" >
-                                                    {{service.code}}- {{service.desc}}
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-6" ng-repeat="service in transaction.serviceRequestList" >
+                                                    <div class="panel panel-info">
+                                                        <div class="panel-heading">Vehicle No. :{{service.carNumber}}</div>
+                                                        <div class="panel-body">
+                                                            <ul ng-repeat="srv in service.services">
+                                                                <li>{{srv.code}}- {{srv.desc}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+
+
                                                 </div>
                                             </div>
 
@@ -286,13 +296,26 @@
                                         <div class="panel-heading">
                                             <h3 class="panel-title">Service Requested</h3>
                                         </div>
-                                        <div class="panel-body">
+                                        <!--<div class="panel-body">
                                             <div class="col-lg-12" >
                                                 <div class="col-lg-4 well" ng-repeat="service in transaction.serviceRequestList" >
                                                     {{service.code}}- {{service.desc}}
                                                 </div>
                                             </div>
-
+                                        </div>-->
+                                            <div class="panel-body">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-6" ng-repeat="service in transaction.serviceRequestList" >
+                                                    <div class="panel panel-info">
+                                                        <div class="panel-heading">Vehicle No. :{{service.carNumber}}</div>
+                                                        <div class="panel-body">
+                                                            <ul ng-repeat="srv in service.services">
+                                                                <li>{{srv.code}}- {{srv.desc}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -402,13 +425,26 @@
                                         <div class="panel-heading">
                                             <h3 class="panel-title">Service Requested</h3>
                                         </div>
-                                        <div class="panel-body">
+                                        <!--<div class="panel-body">
                                             <div class="col-lg-12" >
                                                 <div class="col-lg-4 well" ng-repeat="service in transaction.serviceRequestList" >
                                                     {{service.code}}- {{service.desc}}
                                                 </div>
                                             </div>
-
+                                        </div>-->
+                                            <div class="panel-body">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-6" ng-repeat="service in transaction.serviceRequestList" >
+                                                    <div class="panel panel-info">
+                                                        <div class="panel-heading">Vehicle No. :{{service.carNumber}}</div>
+                                                        <div class="panel-body">
+                                                            <ul ng-repeat="srv in service.services">
+                                                                <li>{{srv.code}}- {{srv.desc}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -523,8 +559,23 @@
                                             {{service.code}}- {{service.desc}}
                                         </div>
                                     </div>
-
                                 </div>
+                                <!--
+                                            <div class="panel-body">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-6" ng-repeat="service in transaction.serviceRequestList" >
+                                                    <div class="panel panel-info">
+                                                        <div class="panel-heading">Vehicle No. :{{service.carNumber}}</div>
+                                                        <div class="panel-body">
+                                                            <ul ng-repeat="srv in service.services">
+                                                                <li>{{srv.code}}- {{srv.desc}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            -->
                             </div>
                         </div>
                         <div class="col-lg-4">
