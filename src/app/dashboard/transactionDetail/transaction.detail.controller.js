@@ -73,31 +73,29 @@
                         .$loaded().then(function (subChildSnap) {
                         var previousTransactionId = "";
                         var serviceListPerCarCount = 0;
+                        var sameTransactionIndexCount = -1;
                         subChildSnap.forEach(function (data, index) {
-                            //console.log(subChildSnap);
-                            console.log("Open Tran :"+data.requestStatus);
-
-                            if (data.requestStatus === "open"){
+                            if (data.requestStatus === "open") {
                                 var transId = childSnapshot.$id;
                                 data.carNumber = transId;
                                 vm.transactions.push(data);
                                 console.log(vm.obj.length);
                                 var carNumber = data.$id;
+                                vm.obj[index] = [];
 
-                                if (transId != previousTransactionId){
+                                if (transId != previousTransactionId) {
                                     previousTransactionId = transId;
-
-                                    vm.obj[index] = [];
+                                    serviceListPerCarCount =0;
+                                    sameTransactionIndexCount ++;
                                     vm.obj[index]["serviceRequestList"] = [];
                                     vm.obj[index]["carNumber"] = childSnapshot.$id;
-                                    console.log("Transaction Id___hem :"+ childSnapshot.$id);
+                                    console.log("Transaction Id___hem :" + childSnapshot.$id);
 
                                     vm.obj[index]["serviceRequestDate"] = data.serviceRequestDate;
                                     vm.obj[index]["requestStatus"] = data.requestStatus;
 
-
                                     vm.obj[index]["transactionId"] = carNumber;
-                                    console.log("Car Nuber_hem----- :"+ carNumber);
+                                    console.log("Car Nuber_hem----- :" + carNumber);
 
                                     vm.obj[index]["addressLine1"] = data.CarPickAddress.addressLine1;
                                     vm.obj[index]["addressLine2"] = data.CarPickAddress.addressLine2;
@@ -106,7 +104,7 @@
                                     vm.obj[index]["pin"] = data.CarPickAddress.pin;
                                     vm.obj[index]["landmark"] = data.CarPickAddress.landmark;
                                     vm.obj[index]["mobileNumber"] = data.CarPickAddress.mobileNumber;
-                                    
+
                                     //vm.obj[index]["serviceRequestList"] = data.serviceRequestList;
                                     vm.obj[index]["serviceRequestList"][serviceListPerCarCount] = [];
                                     vm.obj[index]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
@@ -130,16 +128,15 @@
                                     vm.obj[index]["vanNumberAssigned"] = data.vanNumberAssigned;
 
                                     vm.openTransactionArray.push(vm.obj[index]);
-                                    console.log("Open Transaction Arr :"+vm.openTransactionArray);
-                                    serviceListPerCarCount ++;
+                                    console.log("Open Transaction Arr :" + vm.openTransactionArray);
+                                    serviceListPerCarCount++;
                                     //console.log(vm.openTransactionArray[index]["serviceRequestDate"])
-                                }else{
-                                    var oldIndex = index-1;
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount] = [];
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["carNumber"]  = carNumber;
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
+                                } else {
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount] = [];
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
 
-                                    //vm.obj[oldIndex]["serviceRequestList"] = vm.obj[oldIndex]["serviceRequestList"].concat(data.serviceRequestList);
+                                    serviceListPerCarCount++;
                                 }
                             }
                         });
@@ -159,28 +156,30 @@
                         .$loaded().then(function (subChildSnap) {
                         var previousTransactionId = "";
                         var serviceListPerCarCount = 0;
+                        var sameTransactionIndexCount = -1;
                         subChildSnap.forEach(function (data, index) {
                             //console.log(subChildSnap);
-                            console.log("Progress Tran :"+data.requestStatus);
+                            console.log("Progress Tran :" + data.requestStatus);
+                            vm.obj[index] = [];
 
-                            if (data.requestStatus === "progress"){
+                            if (data.requestStatus === "progress") {
                                 var transId = childSnapshot.$id;
                                 data.carNumber = childSnapshot.$id;
                                 vm.transactions.push(data);
                                 console.log(vm.obj.length);
                                 var carNumber = data.$id;
 
-                                if (transId != previousTransactionId){
+                                if (transId != previousTransactionId) {
                                     previousTransactionId = transId;
-
-                                    vm.obj[index] = [];
+                                    serviceListPerCarCount =0;
+                                    sameTransactionIndexCount ++;
                                     vm.obj[index]["serviceRequestList"] = [];
 
                                     vm.obj[index]["carNumber"] = childSnapshot.$id;
                                     vm.obj[index]["serviceRequestDate"] = data.serviceRequestDate;
                                     vm.obj[index]["requestStatus"] = data.requestStatus;
 
-                                    console.log("Car Number :"+data.$id);
+                                    console.log("Car Number :" + data.$id);
 
                                     vm.obj[index]["transactionId"] = data.$id;
                                     vm.obj[index]["addressLine1"] = data.CarPickAddress.addressLine1;
@@ -203,7 +202,7 @@
                                         totalPriceForThisCar += parseInt(serv.vehiclegroup);
                                     });
 
-                                    console.log("totalPriceForThisCar = "+totalPriceForThisCar);
+                                    console.log("totalPriceForThisCar = " + totalPriceForThisCar);
                                     vm.obj[index]["totalPriceForThisCar"] = totalPriceForThisCar;
                                     vm.obj[index]["amountPaid"] = "0";
                                     vm.obj[index]["buttonId"] = childSnapshot.$id;
@@ -224,22 +223,21 @@
                                     vm.obj[index]["vanNumberAssigned"] = data.vanNumberAssigned;
 
                                     vm.progressTransactionArray.push(vm.obj[index]);
-                                    serviceListPerCarCount ++;
+                                    serviceListPerCarCount++;
                                     /*console.log("Progress Trans Arr :" +vm.progressTransactionArray);
                                      console.log(vm.progressTransactionArray[index]["serviceRequestDate"]);*/
-                                }else{
-                                    var oldIndex = index-1;
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount] = [];
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["carNumber"]  = carNumber;
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
+                                }else {
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount] = [];
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
+                                    serviceListPerCarCount++;
 
                                     var serviceList = data.serviceRequestList;
                                     var totalPriceForThisCar = 0;
                                     serviceList.forEach(function (serv, k) {
                                         totalPriceForThisCar += parseInt(serv.vehiclegroup);
                                     });
-                                    vm.obj[oldIndex]["totalPriceForThisCar"] += totalPriceForThisCar;
-                                    //vm.obj[oldIndex]["serviceRequestList"] = vm.obj[oldIndex]["serviceRequestList"].concat(data.serviceRequestList);
+                                    vm.obj[sameTransactionIndexCount]["totalPriceForThisCar"] += totalPriceForThisCar;
                                 }
                             }
 
@@ -254,6 +252,7 @@
                 vm.transactions = [];
                 var previousTransactionId = "";
                 var serviceListPerCarCount = 0;
+                var sameTransactionIndexCount = -1;
 
                 console.log(snapshot.length)
                 snapshot.forEach(function (childSnapshot) {
@@ -261,37 +260,39 @@
                     $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId).child(childSnapshot.$id))
                         .$loaded().then(function (subChildSnap) {
                         subChildSnap.forEach(function (data, index) {
-                            console.log("Closed Tran :"+data.requestStatus);
+                            console.log("Closed Tran :" + data.requestStatus);
 
-                            if (data.requestStatus === "closed"){
+                            if (data.requestStatus === "closed") {
                                 var transId = childSnapshot.$id;
                                 data.carNumber = childSnapshot.$id;
                                 vm.transactions.push(data);
                                 console.log(vm.obj.length);
                                 var carNumber = data.$id;
 
-                                if (transId != previousTransactionId){
+                                if (transId != previousTransactionId) {
                                     previousTransactionId = transId;
+                                    serviceListPerCarCount =0;
+                                    sameTransactionIndexCount ++;
                                     vm.obj[index] = [];
-                                vm.obj[index]["serviceRequestList"] = [];
+                                    vm.obj[index]["serviceRequestList"] = [];
 
-                                vm.obj[index]["carNumber"] = childSnapshot.$id;
-                                vm.obj[index]["serviceRequestDate"] = data.serviceRequestDate;
-                                vm.obj[index]["requestStatus"] = data.requestStatus;
+                                    vm.obj[index]["carNumber"] = childSnapshot.$id;
+                                    vm.obj[index]["serviceRequestDate"] = data.serviceRequestDate;
+                                    vm.obj[index]["requestStatus"] = data.requestStatus;
 
-                                vm.obj[index]["transactionId"] = data.$id;
-                                vm.obj[index]["addressLine1"] = data.CarPickAddress.addressLine1;
-                                vm.obj[index]["addressLine2"] = data.CarPickAddress.addressLine2;
-                                //{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}
-                                vm.obj[index]["state"] = data.CarPickAddress.state;
-                                vm.obj[index]["pin"] = data.CarPickAddress.pin;
-                                vm.obj[index]["landmark"] = data.CarPickAddress.landmark;
-                                vm.obj[index]["mobileNumber"] = data.CarPickAddress.mobileNumber;
+                                    vm.obj[index]["transactionId"] = data.$id;
+                                    vm.obj[index]["addressLine1"] = data.CarPickAddress.addressLine1;
+                                    vm.obj[index]["addressLine2"] = data.CarPickAddress.addressLine2;
+                                    //{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}
+                                    vm.obj[index]["state"] = data.CarPickAddress.state;
+                                    vm.obj[index]["pin"] = data.CarPickAddress.pin;
+                                    vm.obj[index]["landmark"] = data.CarPickAddress.landmark;
+                                    vm.obj[index]["mobileNumber"] = data.CarPickAddress.mobileNumber;
 
-                                //vm.obj[index]["serviceRequestList"] = data.serviceRequestList;
-                                vm.obj[index]["serviceRequestList"][serviceListPerCarCount] = [];
-                                vm.obj[index]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
-                                vm.obj[index]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
+                                    //vm.obj[index]["serviceRequestList"] = data.serviceRequestList;
+                                    vm.obj[index]["serviceRequestList"][serviceListPerCarCount] = [];
+                                    vm.obj[index]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
+                                    vm.obj[index]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
 
 
                                     //calculate Total Price for this Car
@@ -300,35 +301,47 @@
                                     serviceList.forEach(function (serv, k) {
                                         totalPriceForThisCar += parseInt(serv.vehiclegroup);
                                     });
-                                //vm.obj[index]["totalPrice"] = parseInt(data.totalPrice);
-                                vm.obj[index]["totalPrice"] = totalPriceForThisCar;
-                                vm.obj[index]["amountPaid"] = data.amountPaid;
+                                    //vm.obj[index]["totalPrice"] = parseInt(data.totalPrice);
+                                    vm.obj[index]["totalPrice"] = totalPriceForThisCar;
+                                    vm.obj[index]["amountPaid"] = data.amountPaid;
 
-                                vm.obj[index]["buttonId"] = childSnapshot.$id;
-                                vm.obj[index]["agentNames"] = [];
+                                    vm.obj[index]["buttonId"] = childSnapshot.$id;
+                                    vm.obj[index]["agentNames"] = [];
 
-                                var counter = 0;
-                                vm.vanAndAgents.forEach(function (vanAndAgent, idx) {//If the Agent is already assigned then do not show him.
-                                    if (!vanAndAgent.isAgentAssignedWithTask) {
-                                        vm.obj[index]["agentNames"][counter] = vanAndAgent;
-                                        counter++;
-                                    }
-                                });
+                                    var counter = 0;
+                                    vm.vanAndAgents.forEach(function (vanAndAgent, idx) {//If the Agent is already assigned then do not show him.
+                                        if (!vanAndAgent.isAgentAssignedWithTask) {
+                                            vm.obj[index]["agentNames"][counter] = vanAndAgent;
+                                            counter++;
+                                        }
+                                    });
 
-                                vm.selectedItem[index] = [];
-                                vm.obj[index]["agentAssigned"] = data.agentAssigned;
-                                vm.obj[index]["serviceProcessDate"] = data.serviceProcessDate;
-                                vm.obj[index]["serviceCompleteDate"] = data.serviceCompleteDate;
-                                vm.obj[index]["vanNumberAssigned"] = data.vanNumberAssigned;
+                                    vm.selectedItem[index] = [];
+                                    vm.obj[index]["agentAssigned"] = data.agentAssigned;
+                                    vm.obj[index]["serviceProcessDate"] = data.serviceProcessDate;
+                                    vm.obj[index]["serviceCompleteDate"] = data.serviceCompleteDate;
+                                    vm.obj[index]["vanNumberAssigned"] = data.vanNumberAssigned;
 
-                                vm.closedTransactionArray.push(vm.obj[index]);
-                                serviceListPerCarCount++;
-                                console.log("Closed Transaction Array :"+vm.closedTransactionArray);
-                                console.log(vm.closedTransactionArray[index]["serviceRequestDate"]);
-                                }else{
-                                    var oldIndex = index-1;
+                                    vm.closedTransactionArray.push(vm.obj[index]);
+                                    serviceListPerCarCount++;
+                                    console.log("Closed Transaction Array :" + vm.closedTransactionArray);
+                                    console.log(vm.closedTransactionArray[index]["serviceRequestDate"]);
+                                }else {
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount] = [];
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
+                                    vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
+                                    serviceListPerCarCount++;
+
+                                    var serviceList = data.serviceRequestList;
+                                    var totalPriceForThisCar = 0;
+                                    serviceList.forEach(function (serv, k) {
+                                        totalPriceForThisCar += parseInt(serv.vehiclegroup);
+                                    });
+                                    vm.obj[sameTransactionIndexCount]["totalPrice"] += totalPriceForThisCar;
+                                } /*else {
+                                    var oldIndex = index - 1;
                                     vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount] = [];
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["carNumber"]  = carNumber;
+                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
                                     vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
                                     //vm.obj[oldIndex]["totalPrice"] += parseInt(data.totalPrice);
 
@@ -340,7 +353,7 @@
                                     vm.obj[oldIndex]["totalPrice"] += totalPriceForThisCar;
 
                                     //vm.obj[oldIndex]["serviceRequestList"] = vm.obj[oldIndex]["serviceRequestList"].concat(data.serviceRequestList);
-                                }
+                                }*/
                             }
                         });
                     });
@@ -352,7 +365,7 @@
 
         function onClick(index) {
             var vanNumber = vm.getVanNumber(index);
-            if(vanNumber ==undefined || vanNumber==""){
+            if (vanNumber == undefined || vanNumber == "") {
                 alert('Choose an Agent First!');
                 return;
             }
@@ -373,7 +386,7 @@
              *  mainObj.carNumber = transactionId
              *
              */
-            for (var i=0; i< mainObj.serviceRequestList.length; i++){
+            for (var i = 0; i < mainObj.serviceRequestList.length; i++) {
                 var obj = mainObj.serviceRequestList[i];
                 addVehicleService.updateTransactionStatus(userId, tid, obj.carNumber, mainObj, vm.selectedItem[index], vm.serviceProcessDate[index]);
             }
@@ -404,8 +417,9 @@
 
             console.log(vm.progressTransactionArray[index]);
             var mainObj = vm.progressTransactionArray[index];
+            var vanNumber = mainObj.vanNumberAssigned;
 
-            if (parseInt(mainObj.amountPaid)<=0){
+            if (parseInt(mainObj.amountPaid) <= 0) {
                 alert('Enter Paid Amount!');
                 return;
             }
@@ -421,7 +435,6 @@
                 mainObj.serviceCompleteDate = vm.today;
                 var userId = vm.transactionId;
 
-                var vanNumber = mainObj.vanNumberAssigned;
                 mainObj.vanNumber = vanNumber;
                 console.log("Van Number :" + vanNumber);
                 var tid = mainObj.carNumber;
