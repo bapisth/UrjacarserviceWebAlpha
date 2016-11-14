@@ -85,8 +85,8 @@
 
                                 if (transId != previousTransactionId) {
                                     previousTransactionId = transId;
-                                    serviceListPerCarCount =0;
-                                    sameTransactionIndexCount ++;
+                                    serviceListPerCarCount = 0;
+                                    sameTransactionIndexCount++;
                                     vm.obj[index]["serviceRequestList"] = [];
                                     vm.obj[index]["carNumber"] = childSnapshot.$id;
                                     console.log("Transaction Id___hem :" + childSnapshot.$id);
@@ -146,10 +146,7 @@
 
             //Array For In-Progress Transactions
             $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId)).$loaded().then(function (snapshot) {
-
                 vm.transactions = [];
-
-                console.log(snapshot.length)
                 snapshot.forEach(function (childSnapshot) {
                     vm.obj = [];
                     $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId).child(childSnapshot.$id))
@@ -158,39 +155,31 @@
                         var serviceListPerCarCount = 0;
                         var sameTransactionIndexCount = -1;
                         subChildSnap.forEach(function (data, index) {
-                            //console.log(subChildSnap);
-                            console.log("Progress Tran :" + data.requestStatus);
                             vm.obj[index] = [];
-
                             if (data.requestStatus === "progress") {
                                 var transId = childSnapshot.$id;
                                 data.carNumber = childSnapshot.$id;
                                 vm.transactions.push(data);
-                                console.log(vm.obj.length);
                                 var carNumber = data.$id;
 
                                 if (transId != previousTransactionId) {
                                     previousTransactionId = transId;
-                                    serviceListPerCarCount =0;
-                                    sameTransactionIndexCount ++;
+                                    serviceListPerCarCount = 0;
+                                    sameTransactionIndexCount++;
                                     vm.obj[index]["serviceRequestList"] = [];
 
                                     vm.obj[index]["carNumber"] = childSnapshot.$id;
                                     vm.obj[index]["serviceRequestDate"] = data.serviceRequestDate;
                                     vm.obj[index]["requestStatus"] = data.requestStatus;
 
-                                    console.log("Car Number :" + data.$id);
-
                                     vm.obj[index]["transactionId"] = data.$id;
                                     vm.obj[index]["addressLine1"] = data.CarPickAddress.addressLine1;
                                     vm.obj[index]["addressLine2"] = data.CarPickAddress.addressLine2;
-                                    //{{transaction.CarPickAddress.state}}, {{transaction.CarPickAddress.pin}}
                                     vm.obj[index]["state"] = data.CarPickAddress.state;
                                     vm.obj[index]["pin"] = data.CarPickAddress.pin;
                                     vm.obj[index]["landmark"] = data.CarPickAddress.landmark;
                                     vm.obj[index]["mobileNumber"] = data.CarPickAddress.mobileNumber;
 
-                                    //vm.obj[index]["serviceRequestList"] = data.serviceRequestList;
                                     vm.obj[index]["serviceRequestList"][serviceListPerCarCount] = [];
                                     vm.obj[index]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
                                     vm.obj[index]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
@@ -202,7 +191,6 @@
                                         totalPriceForThisCar += parseInt(serv.vehiclegroup);
                                     });
 
-                                    console.log("totalPriceForThisCar = " + totalPriceForThisCar);
                                     vm.obj[index]["totalPriceForThisCar"] = totalPriceForThisCar;
                                     vm.obj[index]["amountPaid"] = "0";
                                     vm.obj[index]["buttonId"] = childSnapshot.$id;
@@ -224,14 +212,11 @@
 
                                     vm.progressTransactionArray.push(vm.obj[index]);
                                     serviceListPerCarCount++;
-                                    /*console.log("Progress Trans Arr :" +vm.progressTransactionArray);
-                                     console.log(vm.progressTransactionArray[index]["serviceRequestDate"]);*/
-                                }else {
+                                } else {
                                     vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount] = [];
                                     vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
                                     vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
                                     serviceListPerCarCount++;
-
                                     var serviceList = data.serviceRequestList;
                                     var totalPriceForThisCar = 0;
                                     serviceList.forEach(function (serv, k) {
@@ -240,7 +225,6 @@
                                     vm.obj[sameTransactionIndexCount]["totalPriceForThisCar"] += totalPriceForThisCar;
                                 }
                             }
-
                         });
                     });
                 });
@@ -248,32 +232,27 @@
 
             //Array for Closed Transactions
             $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId)).$loaded().then(function (snapshot) {
-
                 vm.transactions = [];
-                var previousTransactionId = "";
-                var serviceListPerCarCount = 0;
-                var sameTransactionIndexCount = -1;
-
                 console.log(snapshot.length)
                 snapshot.forEach(function (childSnapshot) {
                     vm.obj = [];
                     $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId).child(childSnapshot.$id))
                         .$loaded().then(function (subChildSnap) {
+                        var previousTransactionId = "";
+                        var serviceListPerCarCount = 0;
+                        var sameTransactionIndexCount = -1;
                         subChildSnap.forEach(function (data, index) {
-                            console.log("Closed Tran :" + data.requestStatus);
-
+                            vm.obj[index] = [];
                             if (data.requestStatus === "closed") {
                                 var transId = childSnapshot.$id;
                                 data.carNumber = childSnapshot.$id;
                                 vm.transactions.push(data);
-                                console.log(vm.obj.length);
                                 var carNumber = data.$id;
 
                                 if (transId != previousTransactionId) {
                                     previousTransactionId = transId;
-                                    serviceListPerCarCount =0;
-                                    sameTransactionIndexCount ++;
-                                    vm.obj[index] = [];
+                                    serviceListPerCarCount = 0;
+                                    sameTransactionIndexCount++;
                                     vm.obj[index]["serviceRequestList"] = [];
 
                                     vm.obj[index]["carNumber"] = childSnapshot.$id;
@@ -326,7 +305,7 @@
                                     serviceListPerCarCount++;
                                     console.log("Closed Transaction Array :" + vm.closedTransactionArray);
                                     console.log(vm.closedTransactionArray[index]["serviceRequestDate"]);
-                                }else {
+                                } else {
                                     vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount] = [];
                                     vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
                                     vm.obj[sameTransactionIndexCount]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
@@ -338,22 +317,23 @@
                                         totalPriceForThisCar += parseInt(serv.vehiclegroup);
                                     });
                                     vm.obj[sameTransactionIndexCount]["totalPrice"] += totalPriceForThisCar;
-                                } /*else {
-                                    var oldIndex = index - 1;
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount] = [];
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
-                                    vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
-                                    //vm.obj[oldIndex]["totalPrice"] += parseInt(data.totalPrice);
+                                }
+                                /*else {
+                                 var oldIndex = index - 1;
+                                 vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount] = [];
+                                 vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["carNumber"] = carNumber;
+                                 vm.obj[oldIndex]["serviceRequestList"][serviceListPerCarCount]["services"] = data.serviceRequestList;
+                                 //vm.obj[oldIndex]["totalPrice"] += parseInt(data.totalPrice);
 
-                                    var serviceList = data.serviceRequestList;
-                                    var totalPriceForThisCar = 0;
-                                    serviceList.forEach(function (serv, k) {
-                                        totalPriceForThisCar += parseInt(serv.vehiclegroup);
-                                    });
-                                    vm.obj[oldIndex]["totalPrice"] += totalPriceForThisCar;
+                                 var serviceList = data.serviceRequestList;
+                                 var totalPriceForThisCar = 0;
+                                 serviceList.forEach(function (serv, k) {
+                                 totalPriceForThisCar += parseInt(serv.vehiclegroup);
+                                 });
+                                 vm.obj[oldIndex]["totalPrice"] += totalPriceForThisCar;
 
-                                    //vm.obj[oldIndex]["serviceRequestList"] = vm.obj[oldIndex]["serviceRequestList"].concat(data.serviceRequestList);
-                                }*/
+                                 //vm.obj[oldIndex]["serviceRequestList"] = vm.obj[oldIndex]["serviceRequestList"].concat(data.serviceRequestList);
+                                 }*/
                             }
                         });
                     });
