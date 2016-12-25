@@ -108,7 +108,7 @@
                 snapshot.forEach(function(data, index){
                     console.log(data);
                     vehicleList.push(data);
-                })
+                });
                 return vehicleList;
             });
         }

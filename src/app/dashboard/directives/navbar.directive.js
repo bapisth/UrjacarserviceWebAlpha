@@ -49,7 +49,7 @@
                 '<strong>'+adminNotification.customerName + ' has requested new service.  <i class="icon-attachment2"></i></strong>' +
                 '<span>Transaction Id :' +adminNotification.transactionId+'</span>' +
                 '</a>' +
-                '</li>'
+                '</li>';
             var transactionMsgWindow = angular.element(document.querySelector('#transactionMsgWindow'));
             transactionMsgWindow.prepend(msgListHtml);
 

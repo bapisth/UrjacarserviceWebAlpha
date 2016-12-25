@@ -26,7 +26,7 @@
         vm.vanAndAgents = [];
         vm.showServiceProcessDate = [];
         vm.serviceProcessDate = [];
-        vm.showServiceEndDate = []
+        vm.showServiceEndDate = [];
         vm.serviceCompleteDate = [];
 
         var today = new Date();
@@ -66,7 +66,7 @@
 
                 vm.transactions = [];
 
-                console.log(snapshot.length)
+                console.log(snapshot.length);
                 snapshot.forEach(function (childSnapshot) {
                     vm.obj = [];
                     $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId).child(childSnapshot.$id))
@@ -233,7 +233,7 @@
             //Array for Closed Transactions
             $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId)).$loaded().then(function (snapshot) {
                 vm.transactions = [];
-                console.log(snapshot.length)
+                console.log(snapshot.length);
                 snapshot.forEach(function (childSnapshot) {
                     vm.obj = [];
                     $firebaseArray(firebaseDataService.Transaction.child(vm.transactionId).child(childSnapshot.$id))

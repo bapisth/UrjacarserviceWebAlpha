@@ -10,12 +10,12 @@
     function AdminSettingsController($firebaseObject, authService, dashboardService, firebaseDataService) {
         var vm = this;
         //Put the contnets in the ng-include='dashboardContent'
-        vm.dashboardAdminContent = "app/dashboard/admin/adminsettings.html"
+        vm.dashboardAdminContent = "app/dashboard/admin/adminsettings.html";
         vm.adminUser = {
             name:'',
             email:'',
             mobile:''
-        }
+        };
         vm.updateAdminProfile = updateAdminProfile;
 
         //get the email address of the currently loggedin user
@@ -36,7 +36,7 @@
                     alert('Error updating Profile. Error :'+error);
                     return;
                 }
-                alert('Successfully Updated!!')
+                alert('Successfully Updated!!');
                 updateFiledsWithServerAdminData();//Refresh the filed
             });
 

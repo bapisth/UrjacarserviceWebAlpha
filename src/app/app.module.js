@@ -21,7 +21,8 @@
             'app.waitList',
             'app.dashBoard',
             'app.dashBoard.admin',
-            'app.dashboard.dailytransaction'
+            'app.dashboard.dailytransaction',
+            'app.masterReport'
         ])
         .config(configFunction)
         .run(runFunction);

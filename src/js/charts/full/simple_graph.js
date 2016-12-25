@@ -25,9 +25,8 @@
             left: x - 9,
             opacity: 0.9
         }).prependTo(rootElt).show();
-    };
-
-    var previousPoint = null;
+    }
+        var previousPoint = null;
     $("#simple_graph").bind("plothover", function (event, pos, item) {
         $("#x").text(pos.x.toFixed(2));
         $("#y").text(pos.y.toFixed(2));

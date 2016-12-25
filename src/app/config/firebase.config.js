@@ -5,10 +5,10 @@
 // You can copy and paste your config values by following the instructions at
 // https://firebase.google.com/docs/web/setup#add_firebase_to_your_app.
 var config = {
-    apiKey: "AIzaSyBNqsLFogF9rcc7178aW6uT1tHJaoT32yw",
-    authDomain: "motoservice-ef94a.firebaseapp.com",
-    databaseURL: "https://motoservice-ef94a.firebaseio.com",
-    storageBucket: "motoservice-ef94a.appspot.com",
+    apiKey: "AIzaSyDOFlonG_E1gEZCl-Dwv5mCaM_0QJgOA1E",
+    authDomain: "carclinic-staging.firebaseapp.com",
+    databaseURL: "https://carclinic-staging.firebaseio.com",
+    storageBucket: "carclinic-staging.appspot.com",
 };
 firebase.initializeApp(config);
 

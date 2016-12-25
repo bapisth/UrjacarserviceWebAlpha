@@ -13,7 +13,7 @@ $(function () {
     for (var i = 0; i <= 10; i += 1)
         d3.push([i, parseInt(Math.random() * 30)]);
  
-    var ds = new Array();
+    var ds = [];
  
      ds.push({
         data:d1,
@@ -49,8 +49,7 @@ $(function () {
             left: x - 6,
             opacity: 0.9
         }).prependTo(rootElt).show();
-    };
-                
+    }
     //Display graph
     $.plot($("#vertical_bars"), ds, {
         colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],

@@ -10,17 +10,16 @@
     function DashBoardController(dashboardService, allTransactionData, DTOptionsBuilder, DTColumnBuilder, $q) {
         var vm = this;
         //Put the contnets in the ng-include='dashboardContent'
-        vm.dashboardContent = "app/dashboard/transactionlist.html"
+        vm.dashboardContent = "app/dashboard/transactionlist.html";
 
         var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
         vm.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
             var defer = $q.defer();
-            console.log(allTransactionData)
+            console.log(allTransactionData);
             defer.resolve(allTransactionData);
             return defer.promise;
         }).withPaginationType('full_numbers');
         vm.dtColumns = [
-
             DTColumnBuilder.newColumn('transactionId')
                 .withTitle('Transaction ID')
                 .renderWith(function (data, type, full, meta) {

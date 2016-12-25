@@ -72,7 +72,7 @@
                     TransactionModel["customerMobile"] = value.mobile;
 
                     allTransactionDatas.push(TransactionModel);
-                })
+                });
                 //console.log(allTransactionDatas);
                 return allTransactionDatas;
             });

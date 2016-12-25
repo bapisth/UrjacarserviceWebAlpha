@@ -15,7 +15,7 @@ $(function () {
     for (var i = 0; i <= 3; i += 1)
         d3_h.push([ parseInt(Math.random() * 20),i]);
                 
-    var ds_h = new Array();
+    var ds_h = [];
     ds_h.push({
         data:d1_h,
         bars: {
@@ -56,9 +56,8 @@ ds_h.push({
             left: x - 25,
             opacity: 0.9
         }).prependTo(rootElt).show();
-    };
-
-$.plot($("#horizontal_bars"), ds_h, {
+    }
+    $.plot($("#horizontal_bars"), ds_h, {
     colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
     grid:{
         hoverable:true
