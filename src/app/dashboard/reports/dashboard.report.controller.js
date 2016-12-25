@@ -17,7 +17,7 @@
             "date":"",
             "agent":"",
             "van":"",
-            "customer":"",
+            "customerName":"",
             "service":"",
             "amount":""
         };
@@ -42,7 +42,10 @@
                                 reportRow.agent = childReportRowData.agentAssigned;
                                 reportRow.date = childReportRowData.serviceProcessDate;
                                 reportRow.van = childReportRowData.vanNumberAssigned;
-                                reportRow.customer = data.$id; //Customer Id
+                                $firebaseArray(firebaseDataService.customer).$loaded().then(function(customerDet){
+                                    reportRow.customerName = customerDet.$getRecord(data.$id).name;
+                                });
+                                //reportRow.customerName = //data.$id; //Customer Id
                                 var amount = 0;
                                 var services = "";
                                 var serviceRqstList = childReportRowData.serviceRequestList;
@@ -56,6 +59,13 @@
                                 reportRow.service = services;
 
                             }
+
+                               /* .then(function(snapshot){
+                                snapshot.forEach(function (customerData, customerIndex) {
+                                   if(customerData.$id === data.$id)
+                                        reportRow.customerName = customerData.name;
+                                });
+                            });*/
                             reportMainListData.push(reportRow);
                         }
                     }
