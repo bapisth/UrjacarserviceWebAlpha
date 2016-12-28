@@ -12,6 +12,8 @@
         var vm = this;
         //Put the contnets in the ng-include='dashboardContent', it is defined in the dashboard.html
         vm.dashboardContent="app/dashboard/reports/masterreport.html";
+        vm.generateReport = generateReport;
+        vm.convertStringToDate = convertStringToDate;
 
         vm.reportDataModel = {
             "date":"",
@@ -22,6 +24,7 @@
             "amount":""
         };
 
+        vm.vanAddedMsg = "";
         vm.buttonTitle="Generate Report";
 
         vm.defaultConfigTableParams = null;
@@ -59,7 +62,20 @@
                                     reportRow.service = services;
 
                                 }
-                                reportMainListData.push(reportRow);
+                                /**
+                                 * Testing dates
+                                 * 14/11/2016
+                                 * 12/11/2016
+                                 * 13/11/2016
+                                 */
+                                var fromDate = convertStringToDate('12/11/2016');
+                                var toDate = convertStringToDate('14/11/2016');
+                                var processDate = "";
+                                if (reportRow.date != undefined)
+                                 processDate = convertStringToDate(reportRow.date);
+
+                                if(dateCheck(fromDate, new Date(), processDate))
+                                    reportMainListData.push(reportRow);
                             }
                         }
                     }
@@ -70,5 +86,30 @@
             vm.defaultConfigTableParams.reload();
 
         });
+        
+        function generateReport(report) {
+            alert("Inside generate report!!");
+
+        }
+
+        function convertStringToDate(dateString){
+            var parts =dateString.split('/');
+            return new Date(parts[2],parts[0]-1,parts[1]);
+        }
+
+        function dateCheck(from,to,check) {
+            if (check=="")
+                return false;
+
+            var fDate,lDate,cDate;
+            fDate = Date.parse(from);
+            lDate = Date.parse(to);
+            cDate = Date.parse(check);
+
+            if((cDate <= lDate && cDate >= fDate)) {
+                return true;
+            }
+            return false;
+        }
     }
 })();
