@@ -74,7 +74,7 @@
                                 if (reportRow.date != undefined)
                                  processDate = convertStringToDate(reportRow.date);
 
-                                if(dateCheck(fromDate, new Date(), processDate))
+                                if(dateCheck(fromDate, toDate, processDate))
                                     reportMainListData.push(reportRow);
                             }
                         }

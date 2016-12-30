@@ -12,8 +12,16 @@
         .when('/masterReport', {
           templateUrl: 'app/dashboard/dashboard.html',
           controller: 'ReportController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+            resolve: {
+                user: resolveUser
+            }
         });
   }
+    resolveUser.$inject = ['authService'];
+
+    function resolveUser(authService) {
+        return authService.firebaseAuthObject.$requireSignIn();
+    }
 
 })();
