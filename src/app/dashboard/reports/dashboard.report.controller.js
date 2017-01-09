@@ -56,7 +56,7 @@
                             console.log(dateCheckResult);
                             return dateCheckResult;
                         });
-                        if (filterdData[0].hasOwnProperty(requestStatus)){
+                        if (filterdData[0] && filterdData[0].hasOwnProperty('requestStatus')){
                             vm.searchFilterReportData.push(filterdData);
                         }
                     });
