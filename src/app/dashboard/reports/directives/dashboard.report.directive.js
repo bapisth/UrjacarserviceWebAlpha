@@ -29,6 +29,25 @@
 
     function ReportDirectiveController(dashboardService) {
         var vm = this;
+        vm.openCalender = openCalender;
+        vm.openCalender2 = openCalender2;
+        //vm.dateFieldOpened1 = false;
+
+        //Datepicker popup
+        function openCalender($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            vm.dateFieldOpened1 = true;
+        };
+
+        function openCalender2($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            vm.dateFieldOpened2 = true;
+        };
+
+
+        //Report Model
         vm.report = {
             vehicleNumber: '',
             fromDate: '',
@@ -37,11 +56,13 @@
 
         vm.today = function() {
             vm.dt = new Date();
+            vm.dt2 = new Date();
         };
         vm.today();
 
         vm.clear = function() {
             vm.dt = null;
+            vm.dt2 = null;
         };
 
         vm.inlineOptions = {
@@ -72,29 +93,14 @@
 
         vm.toggleMin();
 
-        vm.open1 = function() {
-            vm.popup1.opened = true;
-        };
-
-        vm.open2 = function() {
-            vm.popup2.opened = true;
-        };
-
         vm.setDate = function(year, month, day) {
             vm.dt = new Date(year, month, day);
+            vm.dt2 = new Date(year, month, day);
         };
 
-        vm.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        vm.formats = ['yyyy/MM/dd', 'dd-MMMM-yyyy',  'dd.MM.yyyy', 'shortDate'];
         vm.format = vm.formats[0];
         vm.altInputFormats = ['M!/d!/yyyy'];
-
-        vm.popup1 = {
-            opened: false
-        };
-
-        vm.popup2 = {
-            opened: false
-        };
 
         var tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);

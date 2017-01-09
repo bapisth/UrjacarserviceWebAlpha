@@ -24,6 +24,9 @@
             "amount":""
         };
 
+        vm.searchFilterReportData = [];
+
+
         vm.vanAddedMsg = "";
         vm.buttonTitle="Generate Report";
 
@@ -36,6 +39,34 @@
             var reportMainListData = [];
             snapshot.forEach(function (data, index) {
                 $firebaseObject(firebaseDataService.customer.child(data.$id).child("name")).$loaded().then(function (customerName) {
+                    var dataArray = _.values(data, alert);
+
+
+                    var kadali = _.toArray(dataArray);
+                    console.log(kadali);
+
+                    var evens = _.each(dataArray, function(dataArrObj){
+                        var childDataArrObjArray = _.values(dataArrObj);
+                        var filterdData = _.filter(childDataArrObjArray, function (subObject) {
+                            console.log(subObject);
+                            var fromDate = convertStringToDate('12/11/2016');
+                            var toDate = convertStringToDate('14/11/2016');
+                            var processDate = subObject.serviceProcessDate;
+                            var dateCheckResult = dateCheck(fromDate, toDate, processDate);
+                            console.log(dateCheckResult);
+                            return dateCheckResult;
+                        });
+                        if (filterdData[0].hasOwnProperty(requestStatus)){
+                            vm.searchFilterReportData.push(filterdData);
+                        }
+                    });
+
+                    console.log(vm.searchFilterReportData);
+
+                    _.allKeys(data, function (objInData) {
+                        console.log(objInData);
+                    });
+                    return;//testing remove it once test completes
                     customerName = customerName.$value;
                     for (var key in data) {
                         if (key !=="$id" && key !== "$priority"){
