@@ -1,5 +1,7 @@
 # Wait and Eat
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/046e050c160b4f31aebbfac6427966ca)](https://www.codacy.com/app/bapisth/UrjacarserviceWebAlpha?utm_source=github.com&utm_medium=referral&utm_content=bapisth/UrjacarserviceWebAlpha&utm_campaign=badger)
+
 This is the most recent version of the demo app for [The Angular Course](https://www.angularcourse.com).
 
 Wait and Eat replaces paper waiting lists at restaurants.
