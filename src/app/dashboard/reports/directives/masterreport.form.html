@@ -13,13 +13,11 @@
 <form class="form-horizontal" name="masterReportForm" ng-submit="vm.submitAction({report: vm.report})" novalidate>
     <fieldset>
         <div>
-            <pre>Selected date is: <em>{{vm.dt | date:'fullDate' }}</em></pre>
-
-            <h4>Popup</h4>
             <div class="row">
-                <div class="col-md-6">
+
+                <div class="col-sm-3">
                     <p class="input-group">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="vm.dateFieldOpened1"
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="vm.report.fromDate" is-open="vm.dateFieldOpened1"
                                datepicker-options="dateOptions"
                                ng-required="true"
                                close-text="Close"
@@ -33,11 +31,11 @@
                     </p>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-sm-3">
                     <p class="input-group">
                         <input type="text" class="form-control"
                                uib-datepicker-popup="{{format}}"
-                               ng-model="dt2" is-open="vm.dateFieldOpened2"
+                               ng-model="vm.report.toDate" is-open="vm.dateFieldOpened2"
                                datepicker-options="dateOptions"
                                ng-required="true"
                                close-text="Close" />
@@ -49,61 +47,20 @@
                       </span>
                     </p>
                 </div>
-            </div>
-        </div>
 
-        <!-- Prepended text-->
-        <div class="form-group">
-            <label class="col-md-4 control-label"></label>
-            <div class="col-md-5">
-                <label class="col-md-4 control-label" ng-bind="vm.vanAddedmessage"></label>
-            </div>
-        </div>
-        <div class="form-group">
-        </div>
+                <div class="col-sm-3">
+                    <p class="input-group">
+                        <!--<select ng-model="agentName  ng-options="item for item in agentNames"></select>-->
+                        <select ng-model="vm.report.agentVanNumber" ng-options="ag.vanNumber as ag.name for ag in vm.agentNames" class="form-control">
+                            <option value="">---select---</option>
+                        </select>
 
-        <!-- Prepended text-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="vehicleName"></label>
-            <div class="col-md-5">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon-truck"></i></i></span>
-                    <input ng-model="vm.vehicle.vehicleName" id="vehicleName" name="vehicleName" class="form-control" placeholder="Vehicle Name" type="text">
+                    </p>
                 </div>
 
-            </div>
-        </div>
-
-        <!-- Prepended text-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="contactNo"></label>
-            <div class="col-md-5">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon-mobile-phone"></i></span>
-                    <input ng-model="vm.vehicle.agentContact" id="contactNo" name="contactNo" class="form-control" placeholder="Mobile" type="text">
+                <div class="col-sm-3">
+                    <button class="btn btn-primary" ng-bind="vm.buttonTitle" type="submit">Add</button>
                 </div>
-
-            </div>
-        </div>
-
-        <!-- Prepended text-->
-        <div class="form-group">
-            <label class="col-md-4 control-label"></label>
-            <div class="col-md-5">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon-users form-control-feedback"></i></span>
-                    <input ng-model="vm.vehicle.agentName"   id="agentName" name="agentName" class="form-control" placeholder="Agent Name" type="text">
-
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label"></label>
-            <div class="col-md-4">
-                <button class="btn btn-primary" ng-bind="vm.buttonTitle" type="submit">Add</button>
             </div>
         </div>
 

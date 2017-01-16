@@ -6,7 +6,18 @@
 
     angular
         .module('app.dashBoard')
-        .directive('urjaReport', urjaReport);
+        .directive('urjaReport', urjaReport)
+        // this is the important bit:
+        .directive('datepickerPopup', function (){
+            return {
+                restrict: 'EAC',
+                require: 'ngModel',
+                link: function(scope, element, attr, controller) {
+                    //remove the default formatter from the input directive to prevent conflict
+                    controller.$formatters.shift();
+                }
+            }
+        });
 
     function urjaReport() {
         return {
@@ -25,13 +36,35 @@
         };
     }
 
-    ReportDirectiveController.$inject = ['dashboardService'];
+    ReportDirectiveController.$inject = ['firebaseDataService', '$firebaseArray'];
 
-    function ReportDirectiveController(dashboardService) {
+    function ReportDirectiveController(firebaseDataService, $firebaseArray) {
         var vm = this;
         vm.openCalender = openCalender;
         vm.openCalender2 = openCalender2;
         //vm.dateFieldOpened1 = false;
+
+
+
+
+        //Populate Agent Names
+        $firebaseArray(firebaseDataService.vanWithAgentService).$loaded().then(function(snapshot){
+            vm.agentNames = [];
+
+            vm.agent = {
+                name:'',
+                vanNumber:''
+            }
+            snapshot.forEach(function (data, index) {
+                vm.agent = {};
+                console.log(data);
+                vm.agent.vanNumber = data.vanNumber;
+                vm.agent.name = data.agentName;
+
+                vm.agentNames.push(vm.agent);
+            });
+        });
+
 
         //Datepicker popup
         function openCalender($event) {
@@ -49,20 +82,20 @@
 
         //Report Model
         vm.report = {
-            vehicleNumber: '',
+            agentVanNumber: '',
             fromDate: '',
             endDate: ''
         };
 
         vm.today = function() {
-            vm.dt = new Date();
-            vm.dt2 = new Date();
+            vm.report.startDate = new Date();
+            vm.report.endDate = new Date();
         };
         vm.today();
 
         vm.clear = function() {
-            vm.dt = null;
-            vm.dt2 = null;
+            vm.report.fromDate = null;
+            vm.report.endDate = null;
         };
 
         vm.inlineOptions = {
@@ -94,8 +127,8 @@
         vm.toggleMin();
 
         vm.setDate = function(year, month, day) {
-            vm.dt = new Date(year, month, day);
-            vm.dt2 = new Date(year, month, day);
+            vm.report.startDate = new Date(year, month, day);
+            vm.endDate = new Date(year, month, day);
         };
 
         vm.formats = ['yyyy/MM/dd', 'dd-MMMM-yyyy',  'dd.MM.yyyy', 'shortDate'];
