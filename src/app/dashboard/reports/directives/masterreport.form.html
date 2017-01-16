@@ -17,7 +17,7 @@
 
                 <div class="col-sm-3">
                     <p class="input-group">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="vm.report.fromDate" is-open="vm.dateFieldOpened1"
+                        <input type="text" class="form-control" placeholder="From date" uib-datepicker-popup="{{format}}" ng-model="vm.report.fromDate" is-open="vm.dateFieldOpened1"
                                datepicker-options="dateOptions"
                                ng-required="true"
                                close-text="Close"
@@ -33,7 +33,7 @@
 
                 <div class="col-sm-3">
                     <p class="input-group">
-                        <input type="text" class="form-control"
+                        <input type="text" class="form-control" placeholder="To date"
                                uib-datepicker-popup="{{format}}"
                                ng-model="vm.report.toDate" is-open="vm.dateFieldOpened2"
                                datepicker-options="dateOptions"
@@ -43,7 +43,8 @@
                         <button type="button"
                                 class="btn btn-default"
                                 ng-click="vm.openCalender2($event)">
-                            <i class="glyphicon glyphicon-calendar"></i></button>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
                       </span>
                     </p>
                 </div>
@@ -52,7 +53,7 @@
                     <p class="input-group">
                         <!--<select ng-model="agentName  ng-options="item for item in agentNames"></select>-->
                         <select ng-model="vm.report.agentVanNumber" ng-options="ag.vanNumber as ag.name for ag in vm.agentNames" class="form-control">
-                            <option value="">---select---</option>
+                            <option value="">------Select Agent------</option>
                         </select>
 
                     </p>

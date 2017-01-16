@@ -38,73 +38,76 @@
 
         
         function generateReport(report) {
-            $firebaseArray(firebaseDataService.Transaction).$loaded().then(function(snapshot){
-                var reportMainListData = [];
-                snapshot.forEach(function (data, index) {
-                    $firebaseObject(firebaseDataService.customer.child(data.$id).child("name")).$loaded().then(function (customerName) {
-                        var dataArray = _.values(data, alert);
 
-                        customerName = customerName.$value;
-                        for (var key in data) {
-                            if (key !=="$id" && key !== "$priority"){
-                                vm.reportDataModel = {};
-                                var reportRow = vm.reportDataModel;
-                                if (data.hasOwnProperty(key)) {
-                                    var childData  = data[key];
-                                    for (var childKey in childData){
-                                        var childReportRowData = childData[childKey];
-                                        reportRow.agent = childReportRowData.agentAssigned;
-                                        reportRow.date = childReportRowData.serviceProcessDate;
-                                        reportRow.van = childReportRowData.vanNumberAssigned;
-                                        reportRow.customerName = customerName;
-                                        var amount = 0;
-                                        var services = "";
-                                        var serviceRqstList = childReportRowData.serviceRequestList;
-                                        if (serviceRqstList != undefined){
-                                            serviceRqstList.forEach(function (serviceRqstListData, serviceRqstListIndex) {
-                                                amount += parseInt(serviceRqstListData.vehiclegroup);
-                                                services += serviceRqstListData.desc+ ",";
-                                            });
+            if (report.fromDate != "" && report.endDate != "" && report.agentVanNumber!=""){
+                $firebaseArray(firebaseDataService.Transaction).$loaded().then(function(snapshot){
+                    var reportMainListData = [];
+                    snapshot.forEach(function (data, index) {
+                        $firebaseObject(firebaseDataService.customer.child(data.$id).child("name")).$loaded().then(function (customerName) {
+                            var dataArray = _.values(data, alert);
+
+                            customerName = customerName.$value;
+                            for (var key in data) {
+                                if (key !=="$id" && key !== "$priority"){
+                                    vm.reportDataModel = {};
+                                    var reportRow = vm.reportDataModel;
+                                    if (data.hasOwnProperty(key)) {
+                                        var childData  = data[key];
+                                        for (var childKey in childData){
+                                            var childReportRowData = childData[childKey];
+                                            reportRow.agent = childReportRowData.agentAssigned;
+                                            reportRow.date = childReportRowData.serviceProcessDate;
+                                            reportRow.van = childReportRowData.vanNumberAssigned;
+                                            reportRow.customerName = customerName;
+                                            var amount = 0;
+                                            var services = "";
+                                            var serviceRqstList = childReportRowData.serviceRequestList;
+                                            if (serviceRqstList != undefined){
+                                                serviceRqstList.forEach(function (serviceRqstListData, serviceRqstListIndex) {
+                                                    amount += parseInt(serviceRqstListData.vehiclegroup);
+                                                    services += serviceRqstListData.desc+ ",";
+                                                });
+                                            }
+                                            reportRow.amount = amount;
+                                            reportRow.service = services;
+
                                         }
-                                        reportRow.amount = amount;
-                                        reportRow.service = services;
 
-                                    }
-                                    /**
-                                     * Testing dates
-                                     * 14/11/2016
-                                     * 12/11/2016
-                                     * 13/11/2016
-                                     */
-                                    if (report.fromDate != "" && report.endDate != ""){
-                                        var fromDate = convertStringToDate(report.fromDate.toLocaleDateString());
-                                        var toDate = convertStringToDate(report.endDate.toLocaleDateString());
-                                        var processDate = "";
-                                        if (reportRow.date != undefined){
-                                            processDate = convertStringToDate(reportRow.date);
-                                            var from = fromDate.toLocaleDateString();
-                                            var to = toDate.toLocaleDateString();
-                                            var check = processDate.toLocaleDateString();
-                                            if(dateCheck(from, to, check))
+                                        if ((report.fromDate != "" && report.endDate != "")){
+                                            var fromDate = report.fromDate.toLocaleDateString();
+                                            var toDate = report.endDate.toLocaleDateString();
+                                            var processDate = "";
+                                            if (reportRow.date != undefined){
+                                                processDate = reportRow.date;
+
+                                                //Processdate is in the form of dd/mm/yyyy
+                                                //but other two fileds 'fromDate, toDate' are in mm/dd/yyyy
+                                                var splitProcessDate = processDate.split("/");
+                                                var newProcessDate = splitProcessDate[1]+"/"+splitProcessDate[0]+"/"+splitProcessDate[2]; // mm/dd/yyyy
+                                                if(dateCheck(fromDate, toDate, newProcessDate) && (report.agentVanNumber == reportRow.van))
+                                                    reportMainListData.push(reportRow);
+                                            }else {
                                                 reportMainListData.push(reportRow);
-                                        }else {
+                                            }
+                                        }else{
                                             reportMainListData.push(reportRow);
                                         }
-                                    }else{
-                                        reportMainListData.push(reportRow);
+
+
                                     }
-
-
                                 }
                             }
-                        }
+                        });
                     });
+
+                    vm.defaultConfigTableParams = new NgTableParams({}, { dataset: reportMainListData});
+                    vm.defaultConfigTableParams.reload();
+
                 });
+            }else {
+                alert("All Fields Are Mandatory!!")
+            }
 
-                vm.defaultConfigTableParams = new NgTableParams({}, { dataset: reportMainListData});
-                vm.defaultConfigTableParams.reload();
-
-            });
 
         }
 

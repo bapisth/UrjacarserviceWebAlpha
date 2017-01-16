@@ -57,7 +57,6 @@
             }
             snapshot.forEach(function (data, index) {
                 vm.agent = {};
-                console.log(data);
                 vm.agent.vanNumber = data.vanNumber;
                 vm.agent.name = data.agentName;
 
