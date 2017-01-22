@@ -88,11 +88,13 @@
                         <!--Vehicle List -->
                         <table ng-table="vm.defaultConfigTableParams" class="table table-condensed table-bordered table-striped">
                             <tr ng-repeat="vehicle in $data">
-                                <td data-title="'Van Number'" filter="{ vanNumber: 'text'}" sortable="'vanNumber'">{{vehicle.vanNumber}}</td>
-                                <td data-title="'Van Name'"  filter="{ vanName: 'text'}" sortable="'vehicle.vanName'">{{vehicle.vanName}}</td>
                                 <td data-title="'Agent Name'" filter="{ agentName: 'text'}" sortable="'agentName'">{{vehicle.agentName}}</td>
                                 <td data-title="'Agent Mobile'"  filter="{ agentMobile: 'text'}" sortable="'agentMobile'">{{vehicle.agentMobile}}</td>
-                                <td data-title="'is the Agent Assigned With Task?'" sortable="'isAgentAssignedWithTask'">{{vehicle.isAgentAssignedWithTask ? "Yes" : "No"}}</td>
+                                <td data-title="'Agent address'"  filter="{ agentAddress: 'text'}" sortable="'agentAddress'">{{vehicle.agentAddress}}</td>
+                                <td data-title="'Agent Id'"  filter="{ idNumber: 'text'}" sortable="'idNumber'"><div ng-if="vehicle.idType">{{vehicle.idType}} : {{vehicle.idNumber}}</div> </td>
+                                <td data-title="'Van Number'" filter="{ vanNumber: 'text'}" sortable="'vanNumber'">{{vehicle.vanNumber}}</td>
+                                <td data-title="'Van Name'"  filter="{ vanName: 'text'}" sortable="'vehicle.vanName'">{{vehicle.vanName}}</td>
+                                <td data-title="'Is the Agent Assigned With Task?'" sortable="'isAgentAssignedWithTask'">{{vehicle.isAgentAssignedWithTask ? "Yes" : "No"}}</td>
                             </tr>
                         </table>
                 </div>

@@ -68,6 +68,25 @@
             </div>
         </div>
 
+        <!-- Prepended text-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="vehicleName"></label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-truck"></i></i></span>
+                    <select ng-model="vm.vehicle.idType" id="idType" name="idType" class="form-control" style="width: 130px;">
+                        <option value="License" selected>Driving License</option>
+                        <option value="Adhaar">Adhaar Card</option>
+                        <option value="Passbook">Bank passbook</option>
+                        <option value="Passport">Passport</option>
+                    </select>
+                    <span class="input-group-addon">-</span>
+                    <input ng-model="vm.vehicle.idNumber" id="idNumber" name="idNumber" class="form-control" placeholder="Id Number" type="text">
+                </div>
+
+            </div>
+        </div>
+
         <!-- Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for=""></label>

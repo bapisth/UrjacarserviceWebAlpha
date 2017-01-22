@@ -32,6 +32,8 @@
                 agentName: vehicle.agentName,
                 agentMobile: vehicle.agentContact,
                 agentAddress: vehicle.agentAddress,
+                idType:vehicle.idType,
+                idNumber:vehicle.idNumber,
                 isAgentAssignedWithTask: false,
                 vanPresentLocation: {
                     pin: "N/A",
