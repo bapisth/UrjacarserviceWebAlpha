@@ -31,15 +31,15 @@
             mobileList = [];
             vm.mobileList = [];
             $firebaseArray(firebaseDataService.vanWithAgentService).$loaded().then(function(snapshot){
-                                    vehicleList = [];
-                                    vm.phoneList = [];
-                                    snapshot.forEach(function(data, index){
-                                        mobileList.push(data.agentMobile);
-                                        vehicleList.push(data);
-                                    });
-                            vm.defaultConfigTableParams = new NgTableParams({}, { dataset: vehicleList});
-                            console.log('bahare achhi and table param initialize heijaichi.........');
-                            vm.defaultConfigTableParams.reload();
+                vehicleList = [];
+                vm.phoneList = [];
+                snapshot.forEach(function(data, index){
+                    mobileList.push(data.agentMobile);
+                    vehicleList.push(data);
+                });
+                vm.defaultConfigTableParams = new NgTableParams({}, { dataset: vehicleList});
+                console.log('bahare achhi and table param initialize heijaichi.........');
+                vm.defaultConfigTableParams.reload();
             });
 
         });
@@ -53,6 +53,12 @@
             var isAdded = addVehicleService.addVanWithAgent(vehicle);
             if(isAdded){
                 vm.vanAddedMsg = "Successfully Added";
+                /*agentName = '';
+                agentAddress = '';
+                agentContact = '';
+                vehicleName = '';
+                vehicleNumber = '';*/
+
                 //$location.path('/dashboard');
             }
         }

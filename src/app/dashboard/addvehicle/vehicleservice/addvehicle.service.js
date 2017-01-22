@@ -25,11 +25,13 @@
 
         ////////////
         function addVanWithAgent(vehicle) {
+            console.log(vehicle.agentName+"================"+vehicle.agentAddress);
             return firebaseDataService.vanWithAgentService.child(vehicle.vehicleNumber).set({
                 vanName: vehicle.vehicleName,
                 vanNumber: vehicle.vehicleNumber,
                 agentName: vehicle.agentName,
                 agentMobile: vehicle.agentContact,
+                agentAddress: vehicle.agentAddress,
                 isAgentAssignedWithTask: false,
                 vanPresentLocation: {
                     pin: "N/A",

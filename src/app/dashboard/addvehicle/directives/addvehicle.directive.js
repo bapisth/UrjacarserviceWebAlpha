@@ -34,7 +34,8 @@
             vehicleName: '',
             vehicleNumber: '',
             agentName: '',
-            agentContact: ''
+            agentContact: '',
+            agentAddress:''
         };
 
 
