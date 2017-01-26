@@ -18,41 +18,43 @@
         vm.addVehicle = addVehicle;
         vm.vanAddedMsg = "";
         vm.buttonTitle="Add Record";
-        vm.vehicles = [];
-        var vehicleList = null;
+        reLoadDataTable();
 
-        vm.defaultConfigTableParams = null;
-        vm.mobileList = null;
-        var mobileList = null;
+        function reLoadDataTable(){
+            vm.vehicles = [];
+            var vehicleList = null;
 
-        //Initially populate the data
-        firebaseDataService.vanWithAgentService.limitToLast(1).on("value", function(newChild){
-            vehicleList = [];
-            mobileList = [];
-            vm.mobileList = [];
-            $firebaseArray(firebaseDataService.vanWithAgentService).$loaded().then(function(snapshot){
+            vm.defaultConfigTableParams = null;
+            vm.mobileList = null;
+            var mobileList = null;
+
+            //Initially populate the data
+            firebaseDataService.vanWithAgentService.limitToLast(1).on("value", function(newChild){
                 vehicleList = [];
-                vm.phoneList = [];
-                snapshot.forEach(function(data, index){
-                    mobileList.push(data.agentMobile);
-                    vehicleList.push(data);
+                mobileList = [];
+                vm.mobileList = [];
+                $firebaseArray(firebaseDataService.vanWithAgentService).$loaded().then(function(snapshot){
+                    vehicleList = [];
+                    vm.phoneList = [];
+                    snapshot.forEach(function(data, index){
+                        mobileList.push(data.agentMobile);
+                        vehicleList.push(data);
+                    });
+                    vm.defaultConfigTableParams = new NgTableParams({}, { dataset: vehicleList});
+                    console.log('bahare achhi and table param initialize heijaichi.........');
+                    vm.defaultConfigTableParams.reload();
                 });
-                vm.defaultConfigTableParams = new NgTableParams({}, { dataset: vehicleList});
-                console.log('bahare achhi and table param initialize heijaichi.........');
-                vm.defaultConfigTableParams.reload();
+
             });
-
-        });
-
-        vm.vehicles = vehicleList;
-        vm.mobileList = mobileList;
-
-
-
+            vm.vehicles = vehicleList;
+            vm.mobileList = mobileList;
+        }
         function addVehicle(vehicle) {
             var isAdded = addVehicleService.addVanWithAgent(vehicle);
             if(isAdded){
                 vm.vanAddedMsg = "Successfully Added";
+                reLoadDataTable();
+                //resetForm();
                 /*agentName = '';
                 agentAddress = '';
                 agentContact = '';
@@ -62,6 +64,7 @@
                 //$location.path('/dashboard');
             }
         }
+
         console.log("11111---------11111111111 :"+vm.vehicles);
     }
 
