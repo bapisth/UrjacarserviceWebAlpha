@@ -23,8 +23,8 @@
                         prevTransactionId = data.transactionId;
                         vm.obj[index] = [];
                         vm.obj[index]["customerId"] = data.customerId;
-                        vm.obj[index]["customerName"] = data.customerName;
-                        vm.obj[index]["customerVehicleNumber"] = data.customerVehicleNumber;
+                        //vm.obj[index]["customerName"] = data.customerName;
+                        //vm.obj[index]["customerVehicleNumber"] = data.customerVehicleNumber;
                         vm.obj[index]["isUnread"] = data.isUnread;
                         vm.obj[index]["rootRef"] = data.rootRef;
                         vm.obj[index]["transactionId"] = data.transactionId;
@@ -33,6 +33,11 @@
                         $firebaseObject(firebaseDataService.customer.child(data.customerId).child("mobile")).$loaded().then(function (mobileData) {
                             vm.obj[index]["mobile"] = mobileData.$value;
                         });
+
+                        $firebaseObject(firebaseDataService.customer.child(data.customerId).child("name")).$loaded().then(function (name) {
+                            vm.obj[index]["customerName"] = name.$value;
+                        });
+
                         //Push the data to the dailyTransaction Array
                         vm.dailytransactionOpen.push(vm.obj[index]);
                     /*}*/

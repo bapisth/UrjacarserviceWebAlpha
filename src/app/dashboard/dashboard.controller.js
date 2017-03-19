@@ -21,7 +21,7 @@
         }).withPaginationType('full_numbers');
         vm.dtColumns = [
             DTColumnBuilder.newColumn('transactionId')
-                .withTitle('Transaction ID')
+                .withTitle('Customer ID')
                 .renderWith(function (data, type, full, meta) {
                     return '<a href="#/transactionDetail/' + data + '">' + data + '</a>';
                 }),
