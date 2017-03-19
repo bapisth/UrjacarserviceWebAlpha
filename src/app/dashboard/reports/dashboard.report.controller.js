@@ -38,8 +38,8 @@
 
         
         function generateReport(report) {
-
-            if (report.fromDate != "" && report.endDate != "" && report.agentVanNumber!=""){
+            console.log("==========================================="+ (report.agentVanNumber == "" || report.agentVanNumber == null));
+            if (report.fromDate != "" && report.endDate != ""){ // && report.agentVanNumber!=""
                 $firebaseArray(firebaseDataService.Transaction).$loaded().then(function(snapshot){
                     var reportMainListData = [];
                     snapshot.forEach(function (data, index) {
@@ -73,7 +73,7 @@
 
                                         }
 
-                                        if ((report.fromDate != "" && report.endDate != "")){
+                                        //if ((report.fromDate != "" && report.endDate != "")){
                                             var fromDate = report.fromDate.toLocaleDateString();
                                             var toDate = report.endDate.toLocaleDateString();
                                             var processDate = "";
@@ -84,14 +84,16 @@
                                                 //but other two fileds 'fromDate, toDate' are in mm/dd/yyyy
                                                 var splitProcessDate = processDate.split("/");
                                                 var newProcessDate = splitProcessDate[1]+"/"+splitProcessDate[0]+"/"+splitProcessDate[2]; // mm/dd/yyyy
+                                                //reportRow.date = newProcessDate;
                                                 if(dateCheck(fromDate, toDate, newProcessDate) && (report.agentVanNumber == reportRow.van))
                                                     reportMainListData.push(reportRow);
-                                            }else {
+
+                                            }else if((report.agentVanNumber == "" || report.agentVanNumber == null)){
                                                 reportMainListData.push(reportRow);
                                             }
-                                        }else{
+                                        /*}else{
                                             reportMainListData.push(reportRow);
-                                        }
+                                        }*/
 
 
                                     }
@@ -105,7 +107,7 @@
 
                 });
             }else {
-                alert("All Fields Are Mandatory!!")
+                alert("From and To date are mandatory!!")
             }
 
 
